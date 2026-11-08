@@ -1,0 +1,254 @@
+{
+ "description": "CORD v2 documents where an annotation field is list-valued because the field is printed more than once. Scored fields only (SCALAR_MAP plus menu nm/cnt/unitprice/price). Resolution: first element for numerics, space-join for names.",
+ "splits": {
+  "train": {
+   "n_docs": 800,
+   "n_affected": 18,
+   "docs": [
+    {
+     "doc_id": "train-056",
+     "index": 56,
+     "fields": {
+      "subtotal": [
+       "49.636",
+       "49.636"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "train-088",
+     "index": 88,
+     "fields": {
+      "discount": [
+       "0",
+       "0"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "train-135",
+     "index": 135,
+     "fields": {
+      "total": [
+       "55,834",
+       "55,800"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-150",
+     "index": 150,
+     "fields": {
+      "subtotal": [
+       "20,000",
+       "20,000"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "train-191",
+     "index": 191,
+     "fields": {
+      "tax": [
+       "30.273 200",
+       "3.027"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-288",
+     "index": 288,
+     "fields": {
+      "menu[0].nm": [
+       "-",
+       "Gyro Platter Large"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-297",
+     "index": 297,
+     "fields": {
+      "tax": [
+       "0",
+       "0"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "train-327",
+     "index": 327,
+     "fields": {
+      "menu[0].nm": [
+       "1",
+       "MIE UP BSR C"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-351",
+     "index": 351,
+     "fields": {
+      "subtotal": [
+       "31,363",
+       "31,363"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "train-478",
+     "index": 478,
+     "fields": {
+      "subtotal": [
+       "Rp. 209.999",
+       "Rp. 209.999"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "train-495",
+     "index": 495,
+     "fields": {
+      "tax": [
+       "10.000%",
+       "546"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-500",
+     "index": 500,
+     "fields": {
+      "subtotal": [
+       "63,636",
+       "63,636"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "train-525",
+     "index": 525,
+     "fields": {
+      "menu[0].cnt": [
+       "TRIPPLE CHEESE",
+       "1"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-603",
+     "index": 603,
+     "fields": {
+      "subtotal": [
+       "73,638",
+       "81,002"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-691",
+     "index": 691,
+     "fields": {
+      "subtotal": [
+       "52.636",
+       "52.636"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "train-732",
+     "index": 732,
+     "fields": {
+      "menu[0].nm": [
+       "TAKEOUT(1):",
+       "Viet Latte"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-744",
+     "index": 744,
+     "fields": {
+      "tax": [
+       "9,817.8",
+       "0"
+      ]
+     },
+     "elements_disagree": true
+    },
+    {
+     "doc_id": "train-778",
+     "index": 778,
+     "fields": {
+      "tax": [
+       "4,954.1",
+       "0"
+      ]
+     },
+     "elements_disagree": true
+    }
+   ]
+  },
+  "validation": {
+   "n_docs": 100,
+   "n_affected": 1,
+   "docs": [
+    {
+     "doc_id": "validation-037",
+     "index": 37,
+     "fields": {
+      "menu[1].nm": [
+       "-",
+       "Gyro Platter Regular"
+      ]
+     },
+     "elements_disagree": true
+    }
+   ]
+  },
+  "test": {
+   "n_docs": 100,
+   "n_affected": 2,
+   "docs": [
+    {
+     "doc_id": "test-013",
+     "index": 13,
+     "fields": {
+      "subtotal": [
+       "46.636",
+       "46.636"
+      ]
+     },
+     "elements_disagree": false
+    },
+    {
+     "doc_id": "test-099",
+     "index": 99,
+     "fields": {
+      "tax": [
+       "6,818",
+       "0"
+      ]
+     },
+     "elements_disagree": true
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,96 @@
+{
+  "base_source": "results/full_test_fixed.json",
+  "variant_source": "results/promptfix_test.json",
+  "base_git": "92f6e85",
+  "variant_git": "7cfb7f1-DIRTY",
+  "prompt_variant": "v1.1.0-subtotal",
+  "cell": "mid|ocr_text",
+  "seed": 20261106,
+  "bootstrap_resamples": 10000,
+  "measured_cost_usd": 0.2024,
+  "quantities": {
+    "mean reward": {
+      "baseline": 0.7985019214194773,
+      "variant": 0.83009522205934,
+      "change": 0.031593300639862765
+    },
+    "scalar F1": {
+      "baseline": 0.8352746031746031,
+      "variant": 0.9013698412698413,
+      "change": 0.0660952380952382
+    },
+    "line-item F1": {
+      "baseline": 0.7363452950558214,
+      "variant": 0.730955684666211,
+      "change": -0.005389610389610389
+    },
+    "grounding": {
+      "baseline": 0.7660499781424559,
+      "variant": 0.7909620256982508,
+      "change": 0.024912047555794903
+    },
+    "doc exact match": {
+      "baseline": 0.36,
+      "variant": 0.497,
+      "change": 0.137
+    },
+    "invented_subtotal": {
+      "baseline": 282,
+      "variant": 53,
+      "change": -229
+    },
+    "missed_subtotal": {
+      "baseline": 0,
+      "variant": 0,
+      "change": 0
+    },
+    "wrong_subtotal": {
+      "baseline": 9,
+      "variant": 6,
+      "change": -3
+    },
+    "invented_total": {
+      "baseline": 43,
+      "variant": 42,
+      "change": -1
+    },
+    "missed_tax": {
+      "baseline": 62,
+      "variant": 60,
+      "change": -2
+    }
+  },
+  "reward_gain": {
+    "gain": 0.031593300639862744,
+    "ci_low": 0.01762652485853683,
+    "ci_high": 0.04604844170277775
+  },
+  "exact_match_gain": {
+    "gain": 0.137,
+    "ci_low": 0.07,
+    "ci_high": 0.208
+  },
+  "predictions": {
+    "D7-A": {
+      "text": "gain of +0.0150 to +0.0379",
+      "hit": true,
+      "detail": "measured +0.0316 [+0.0176,+0.0460], ablation bound +0.0379"
+    },
+    "D7-B": {
+      "text": "invented_subtotal below 100/1000",
+      "hit": true,
+      "detail": "282 -> 53 of 1,000 rollouts"
+    },
+    "D7-C": {
+      "text": "missed_subtotal rises above 0 but stays at or below 40/1000",
+      "hit": false,
+      "detail": "0 of 1,000 rollouts"
+    },
+    "D7-D": {
+      "text": "exact match 0.380 to 0.420",
+      "hit": false,
+      "detail": "measured 0.497"
+    }
+  },
+  "decision_rule": "2: the specification diagnosis is confirmed. The headroom table is reported as reachable, not merely an upper bound."
+}

@@ -1,0 +1,107 @@
+{
+  "source": "results/full_test_fixed.json",
+  "git": "92f6e85",
+  "bootstrap_resamples": 10000,
+  "seed": 20261106,
+  "verdicts": {
+    "P1": {
+      "owner": "Claude",
+      "verdict": "PARTIAL",
+      "detail": "3/6 cells within +/-0.05; every miss is an underestimate of the image condition"
+    },
+    "P2": {
+      "owner": "Claude",
+      "verdict": "MISS",
+      "detail": "predicted deltas {'small': 0.28, 'mid': 0.19, 'frontier': 0.09}; measured all within noise of zero, 0/3 predicted values inside the 95% interval"
+    },
+    "S4": {
+      "owner": "Sean",
+      "verdict": "PARTIAL",
+      "detail": "small leg undecided (interval spans zero); frontier leg consistent (<=0 not excluded), and the interval's upper bound +0.0110 excludes P2's +0.09, so the disagreement resolves against P2"
+    },
+    "P3": {
+      "owner": "Claude",
+      "verdict": "PARTIAL",
+      "detail": "largest scalar false positive in 5/6 cells; holds for small and mid, fails at the frontier where every category collapses to about 2% and the ordering is noise"
+    },
+    "P4": {
+      "owner": "Claude",
+      "verdict": "MISS",
+      "detail": "small|image=0.7169 vs baseline 0.330: gap +0.3869, predicted within 0.15. A 9B model on a receipt photograph is far above 'find the biggest number'"
+    },
+    "P5": {
+      "owner": "Claude",
+      "verdict": "HIT",
+      "detail": "parseable on 0.9950 to 1.0000 of rollouts; weakest cell small|image at 0.9950. Format explains none of the tier gap"
+    },
+    "P6": {
+      "owner": "Claude",
+      "verdict": "MISS",
+      "detail": "ocr_text exact match: small=0.300 (predicted <0.15), frontier=0.674 (predicted <0.45). Direction right, both thresholds too pessimistic"
+    },
+    "P7": {
+      "owner": "Claude",
+      "verdict": "MISS",
+      "detail": "on image, fuzzy names beat strict by >=0.05 in 2/3 tiers (small +0.1051, mid +0.0788, frontier +0.0486); the frontier falls 0.0014 short of the threshold, so the prediction fails on its stated bar while its mechanism holds at every tier"
+    },
+    "S1": {
+      "owner": "Sean",
+      "verdict": "HIT",
+      "detail": "ocr=0.9121 [0.8802,0.9410] (point estimate above 0.90 but interval spans it); image=0.9208 [0.8932,0.9457] vs >=0.85; neither reaches 0.95 and both intervals exclude it"
+    },
+    "S2": {
+      "owner": "Sean",
+      "verdict": "HIT",
+      "detail": "line_item_f1 is the lowest-scoring component in 6/6 cells, every tier, both conditions"
+    },
+    "S3": {
+      "owner": "Sean",
+      "verdict": "MISS",
+      "detail": "frontier emits an ungrounded value on 1.0% of documents (ocr) and 1.0% (image), against a predicted floor of 5%. Hallucination is effectively absent at the frontier on this task"
+    },
+    "S5": {
+      "owner": "Sean",
+      "verdict": "HIT",
+      "detail": "holds in both conditions, including the image condition the a priori note flagged as the risk"
+    }
+  },
+  "condition_deltas": {
+    "small": {
+      "delta": 0.010323592053263298,
+      "ci_low": -0.019245308402137472,
+      "ci_high": 0.04164196019298684
+    },
+    "mid": {
+      "delta": -0.021786840251381116,
+      "ci_low": -0.04750453526953591,
+      "ci_high": 0.004376042067315724
+    },
+    "frontier": {
+      "delta": -0.008719226190476189,
+      "ci_low": -0.028650416666666664,
+      "ci_high": 0.011024404761904765
+    }
+  },
+  "tier_gaps": {
+    "frontier-mid|ocr_text": {
+      "gap": 0.1136222149923565,
+      "ci_low": 0.08248250373688945,
+      "ci_high": 0.1458766257581539
+    },
+    "mid-small|ocr_text": {
+      "gap": 0.0713201284128294,
+      "ci_low": 0.02924934377439705,
+      "ci_high": 0.11633501466991528
+    },
+    "frontier-mid|image": {
+      "gap": 0.10055460093145158,
+      "ci_low": 0.07414060485771674,
+      "ci_high": 0.12921140365153355
+    },
+    "mid-small|image": {
+      "gap": 0.10343056071747382,
+      "ci_low": 0.05640299747592216,
+      "ci_high": 0.15394176562204231
+    }
+  }
+}

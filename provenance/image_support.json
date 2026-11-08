@@ -1,0 +1,95 @@
+{
+  "probed_at": "2026-11-05T21:48:38-0500",
+  "results": {
+    "qwen/qwen3.5-9b": {
+      "image_ok": true,
+      "latency_s": 2.34,
+      "in_tok": 81,
+      "attempts": 1
+    },
+    "qwen/qwen3.8-27b": {
+      "image_ok": true,
+      "latency_s": 1.09,
+      "in_tok": 81,
+      "attempts": 1
+    },
+    "qwen/qwen3.6-35b-a3b": {
+      "image_ok": true,
+      "latency_s": 0.3,
+      "in_tok": 81,
+      "attempts": 1
+    },
+    "google/gemma-4-26b-a4b-it": {
+      "image_ok": true,
+      "latency_s": 0.46,
+      "in_tok": 274,
+      "attempts": 1
+    },
+    "google/gemma-4-31b-it": {
+      "image_ok": true,
+      "latency_s": 2.24,
+      "in_tok": 274,
+      "attempts": 1
+    },
+    "z-ai/glm-5.3-flash": {
+      "image_ok": true,
+      "latency_s": 0.35,
+      "in_tok": 33,
+      "attempts": 1
+    },
+    "deepseek/deepseek-v4.1-flash": {
+      "image_ok": true,
+      "latency_s": 0.36,
+      "in_tok": 191,
+      "attempts": 1
+    },
+    "moondream/moondream3.1-9b-a2b": {
+      "image_ok": true,
+      "latency_s": 0.27,
+      "in_tok": 737,
+      "attempts": 1
+    },
+    "qwen/qwen3-vl-30b-a3b-instruct": {
+      "image_ok": true,
+      "latency_s": 0.98,
+      "in_tok": 77,
+      "attempts": 1
+    },
+    "google/gemma-3-27b-it": {
+      "image_ok": true,
+      "latency_s": 0.62,
+      "in_tok": 272,
+      "attempts": 1
+    },
+    "mistralai/mistral-small-2603": {
+      "image_ok": true,
+      "latency_s": 0.78,
+      "in_tok": 20,
+      "attempts": 1
+    },
+    "openai/gpt-5-nano": {
+      "image_ok": true,
+      "latency_s": 2.96,
+      "in_tok": 11,
+      "attempts": 1
+    },
+    "anthropic/claude-haiku-4.5": {
+      "image_ok": true,
+      "latency_s": 0.54,
+      "in_tok": 14,
+      "attempts": 1
+    },
+    "anthropic/claude-sonnet-5.5": {
+      "image_ok": true,
+      "latency_s": 1.05,
+      "in_tok": 15,
+      "attempts": 1
+    },
+    "anthropic/claude-opus-5.5": {
+      "image_ok": true,
+      "latency_s": 1.28,
+      "in_tok": 15,
+      "attempts": 1
+    }
+  }
+}

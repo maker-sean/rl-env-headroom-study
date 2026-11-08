@@ -1,0 +1,84 @@
+{
+  "weights": {
+    "schema_valid": 0.05,
+    "scalar_f1": 0.45,
+    "line_item_f1": 0.35,
+    "grounding": 0.15
+  },
+  "ablations": {
+    "baseline": {
+      "small|ocr_text": 0.7271817930066479,
+      "small|image": 0.7168582009533846,
+      "mid|ocr_text": 0.7985019214194773,
+      "mid|image": 0.8202887616708584,
+      "frontier|ocr_text": 0.9121241364118338,
+      "frontier|image": 0.9208433626023099
+    },
+    "forgive_invented_subtotal": {
+      "small|ocr_text": 0.7481817930066479,
+      "small|image": 0.7413982009533846,
+      "mid|ocr_text": 0.8364519214194772,
+      "mid|image": 0.8426387616708584,
+      "frontier|ocr_text": 0.9122741364118337,
+      "frontier|image": 0.9208433626023099
+    },
+    "fuzzy_item_names": {
+      "small|ocr_text": 0.7563345707844257,
+      "small|image": 0.7536570898422734,
+      "mid|ocr_text": 0.8158955949973614,
+      "mid|image": 0.8478790394486362,
+      "frontier|ocr_text": 0.9237130253007226,
+      "frontier|image": 0.9378655848245322
+    },
+    "accept_bare_array": {
+      "small|ocr_text": 0.7271817930066479,
+      "small|image": 0.7188282009533845,
+      "mid|ocr_text": 0.7985019214194773,
+      "mid|image": 0.8202887616708584,
+      "frontier|ocr_text": 0.9121241364118338,
+      "frontier|image": 0.9208433626023099
+    },
+    "both_specification_fixes": {
+      "small|ocr_text": 0.7773345707844256,
+      "small|image": 0.7801670898422735,
+      "mid|ocr_text": 0.8538455949973613,
+      "mid|image": 0.8702290394486362,
+      "frontier|ocr_text": 0.9238630253007226,
+      "frontier|image": 0.9378655848245322
+    }
+  },
+  "gains": {
+    "forgive_invented_subtotal": {
+      "small|ocr_text": 0.02100000000000002,
+      "small|image": 0.024540000000000006,
+      "mid|ocr_text": 0.03794999999999993,
+      "mid|image": 0.02234999999999998,
+      "frontier|ocr_text": 0.00014999999999998348,
+      "frontier|image": 0.0
+    },
+    "fuzzy_item_names": {
+      "small|ocr_text": 0.029152777777777805,
+      "small|image": 0.036798888888888825,
+      "mid|ocr_text": 0.017393673577884128,
+      "mid|image": 0.027590277777777783,
+      "frontier|ocr_text": 0.01158888888888887,
+      "frontier|image": 0.017022222222222272
+    },
+    "accept_bare_array": {
+      "small|ocr_text": 0.0,
+      "small|image": 0.0019699999999999163,
+      "mid|ocr_text": 0.0,
+      "mid|image": 0.0,
+      "frontier|ocr_text": 0.0,
+      "frontier|image": 0.0
+    },
+    "both_specification_fixes": {
+      "small|ocr_text": 0.05015277777777771,
+      "small|image": 0.06330888888888886,
+      "mid|ocr_text": 0.055343673577884056,
+      "mid|image": 0.049940277777777764,
+      "frontier|ocr_text": 0.011738888888888854,
+      "frontier|image": 0.017022222222222272
+    }
+  }
+}

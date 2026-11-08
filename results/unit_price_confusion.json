@@ -1,0 +1,66 @@
+{
+  "observable_docs": [
+    "test-039",
+    "test-040",
+    "test-060",
+    "test-061",
+    "test-070",
+    "test-076",
+    "test-081",
+    "test-082",
+    "test-084",
+    "test-092",
+    "test-097"
+  ],
+  "observable_items": 18,
+  "cells": {
+    "small|ocr_text": {
+      "price_wrong_on_matched": 234,
+      "price_equals_unit_price": 0,
+      "share_of_price_wrong": 0.0,
+      "opportunities": 135,
+      "rate_per_opportunity": 0.0,
+      "examples": []
+    },
+    "small|image": {
+      "price_wrong_on_matched": 243,
+      "price_equals_unit_price": 0,
+      "share_of_price_wrong": 0.0,
+      "opportunities": 121,
+      "rate_per_opportunity": 0.0,
+      "examples": []
+    },
+    "mid|ocr_text": {
+      "price_wrong_on_matched": 123,
+      "price_equals_unit_price": 0,
+      "share_of_price_wrong": 0.0,
+      "opportunities": 111,
+      "rate_per_opportunity": 0.0,
+      "examples": []
+    },
+    "mid|image": {
+      "price_wrong_on_matched": 114,
+      "price_equals_unit_price": 0,
+      "share_of_price_wrong": 0.0,
+      "opportunities": 120,
+      "rate_per_opportunity": 0.0,
+      "examples": []
+    },
+    "frontier|ocr_text": {
+      "price_wrong_on_matched": 12,
+      "price_equals_unit_price": 0,
+      "share_of_price_wrong": 0.0,
+      "opportunities": 130,
+      "rate_per_opportunity": 0.0,
+      "examples": []
+    },
+    "frontier|image": {
+      "price_wrong_on_matched": 4,
+      "price_equals_unit_price": 0,
+      "share_of_price_wrong": 0.0,
+      "opportunities": 134,
+      "rate_per_opportunity": 0.0,
+      "examples": []
+    }
+  }
+}

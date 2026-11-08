@@ -1,0 +1,84 @@
+{
+  "note": "FORECAST, not measured spend. tiktoken o200k_base proxy. Image tokens excluded: provider tiling not published.",
+  "system_prompt_tokens": 239,
+  "n_docs": 100,
+  "samples_per_doc": 3,
+  "ocr_input_tokens": {
+    "mean": 315.1,
+    "sum": 31506,
+    "min": 276,
+    "max": 443
+  },
+  "image_input_text_tokens": 247,
+  "image_payload_kib_mean": 195.3,
+  "gold_output_tokens": {
+    "mean": 90.0,
+    "sum": 9002
+  },
+  "prices_usd_per_mtok": {
+    "qwen/qwen3-vl-8b-instruct": {
+      "input": 0.117,
+      "output": 0.455
+    },
+    "qwen/qwen3-vl-30b-a3b-instruct": {
+      "input": 0.2,
+      "output": 0.7
+    },
+    "anthropic/claude-opus-5.5": {
+      "input": 4.0,
+      "output": 20.0
+    }
+  },
+  "forecast_rows": [
+    {
+      "condition": "ocr_text",
+      "model": "qwen/qwen3-vl-8b-instruct",
+      "calls": 300,
+      "usd_in": 0.0111,
+      "usd_out": 0.0123,
+      "usd_total": 0.0233
+    },
+    {
+      "condition": "ocr_text",
+      "model": "qwen/qwen3-vl-30b-a3b-instruct",
+      "calls": 300,
+      "usd_in": 0.0189,
+      "usd_out": 0.0189,
+      "usd_total": 0.0378
+    },
+    {
+      "condition": "ocr_text",
+      "model": "anthropic/claude-opus-5.5",
+      "calls": 300,
+      "usd_in": 0.3781,
+      "usd_out": 0.5401,
+      "usd_total": 0.9182
+    },
+    {
+      "condition": "image_text_only",
+      "model": "qwen/qwen3-vl-8b-instruct",
+      "calls": 300,
+      "usd_in": 0.0087,
+      "usd_out": 0.0123,
+      "usd_total": 0.021
+    },
+    {
+      "condition": "image_text_only",
+      "model": "qwen/qwen3-vl-30b-a3b-instruct",
+      "calls": 300,
+      "usd_in": 0.0148,
+      "usd_out": 0.0189,
+      "usd_total": 0.0337
+    },
+    {
+      "condition": "image_text_only",
+      "model": "anthropic/claude-opus-5.5",
+      "calls": 300,
+      "usd_in": 0.2964,
+      "usd_out": 0.5401,
+      "usd_total": 0.8365
+    }
+  ],
+  "forecast_total_usd_text_only": 1.8705,
+  "cap_usd": 40
+}

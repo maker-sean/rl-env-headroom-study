@@ -1,0 +1,712 @@
+<title>CORD Label Audit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a review bench. Document rail on top, receipt photograph beside the
+   labels it produced, one document at a time. Stacks to one column on a phone. */
+:root {
+  --paper: #f6f8f5;
+  --card: #ffffff;
+  --ink: #16191c;
+  --ink-2: #5b6168;
+  --rule: #d8ddd7;
+  --rule-strong: #b6bdb4;
+  --accent: #1f4f6b;
+  --accent-soft: #e4eef3;
+  --ok: #2f6b4f;
+  --wrong: #a53028;
+  --unsure: #8a6414;
+  --ok-soft: #e3efe8;
+  --wrong-soft: #f8e6e4;
+  --unsure-soft: #f6eedb;
+  --font-ui: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #13161a;
+    --card: #1b1f24;
+    --ink: #e7eae6;
+    --ink-2: #949aa1;
+    --rule: #2c3238;
+    --rule-strong: #434b52;
+    --accent: #74b6d1;
+    --accent-soft: #1c2d36;
+    --ok: #74c198;
+    --wrong: #e4847a;
+    --unsure: #d6a747;
+    --ok-soft: #19271f;
+    --wrong-soft: #2c1d1c;
+    --unsure-soft: #2a2317;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #13161a;
+  --card: #1b1f24;
+  --ink: #e7eae6;
+  --ink-2: #949aa1;
+  --rule: #2c3238;
+  --rule-strong: #434b52;
+  --accent: #74b6d1;
+  --accent-soft: #1c2d36;
+  --ok: #74c198;
+  --wrong: #e4847a;
+  --unsure: #d6a747;
+  --ok-soft: #19271f;
+  --wrong-soft: #2c1d1c;
+  --unsure-soft: #2a2317;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 56px;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--paper);
+}
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+h1 {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+h2 { font-size: 15px; font-weight: 600; margin: 0; }
+
+/* ---------- header ---------- */
+header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 9;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding-block: 14px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: baseline;
+}
+.head-meta { font-size: 12px; color: var(--ink-2); font-family: var(--font-mono); }
+.progress { margin-left: auto; display: flex; gap: 14px; align-items: center; }
+.bar { width: 110px; height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); width: 0%; transition: width .25s ease; }
+.count { font-family: var(--font-mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+/* ---------- document rail ---------- */
+.rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.chip {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  padding: 4px 7px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  background: var(--card);
+  color: var(--ink-2);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+.chip[aria-current="true"] { border-color: var(--accent); color: var(--ink); box-shadow: inset 0 0 0 1px var(--accent); }
+.chip[data-v="ok"] { background: var(--ok-soft); color: var(--ok); border-color: var(--ok); }
+.chip[data-v="wrong"] { background: var(--wrong-soft); color: var(--wrong); border-color: var(--wrong); }
+.chip[data-v="unsure"] { background: var(--unsure-soft); color: var(--unsure); border-color: var(--unsure); }
+.chip .dot { color: var(--wrong); font-weight: 600; }
+
+/* ---------- bench ---------- */
+.bench {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 26px;
+  padding-block: 22px;
+  align-items: start;
+}
+@media (max-width: 820px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+
+.shot { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 72px); }
+.shot img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  background: #fff;
+}
+.shot figcaption { margin-top: 8px; }
+.panel { min-width: 0; display: flex; flex-direction: column; gap: 22px; }
+
+.doc-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; }
+.doc-id { font-family: var(--font-mono); font-size: 20px; font-weight: 600; }
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: var(--wrong-soft);
+  color: var(--wrong);
+}
+
+/* receipt text, set like the paper it came from */
+.receipt {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.62;
+  white-space: pre;
+  overflow-x: auto;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 14px 16px;
+  max-height: 340px;
+  overflow-y: auto;
+  margin: 0;
+  color: var(--ink);
+}
+
+.tscroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 2px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+tr:last-child td { border-bottom: none; }
+td.num, td.mono, td.raw { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+td.num { text-align: right; white-space: nowrap; }
+tr[data-flagged="1"] { background: var(--wrong-soft); }
+.listmark { color: var(--unsure); font-weight: 600; font-size: 11px; letter-spacing: .04em; }
+
+.flagbtn {
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.flagbtn[aria-pressed="true"] { background: var(--wrong); border-color: var(--wrong); color: #fff; }
+
+.hint {
+  font-size: 13px;
+  color: var(--ink-2);
+  border-left: 2px solid var(--rule-strong);
+  padding: 2px 0 2px 12px;
+}
+.hint.warn { border-left-color: var(--unsure); color: var(--ink); }
+.hint b { font-family: var(--font-mono); font-weight: 600; }
+
+/* ---------- verdict ---------- */
+.verdict { border: 1px solid var(--rule); border-radius: 2px; background: var(--card); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.vrow { display: flex; flex-wrap: wrap; gap: 8px; }
+.vbtn {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.vbtn[aria-pressed="true"][data-v="ok"] { background: var(--ok); border-color: var(--ok); color: #fff; }
+.vbtn[aria-pressed="true"][data-v="wrong"] { background: var(--wrong); border-color: var(--wrong); color: #fff; }
+.vbtn[aria-pressed="true"][data-v="unsure"] { background: var(--unsure); border-color: var(--unsure); color: #fff; }
+textarea {
+  font: inherit;
+  font-size: 13.5px;
+  width: 100%;
+  min-height: 62px;
+  resize: vertical;
+  padding: 9px 10px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.saved { font-size: 11.5px; color: var(--ink-2); font-family: var(--font-mono); min-height: 1.2em; }
+
+.nav { display: flex; gap: 8px; align-items: center; padding-block: 4px 0; }
+.navbtn {
+  font: inherit;
+  font-size: 13px;
+  padding: 7px 13px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+}
+.navbtn:disabled { opacity: .45; cursor: default; }
+.keys { margin-left: auto; font-size: 11.5px; color: var(--ink-2); font-family: var(--font-mono); }
+
+.notice {
+  border: 1px solid var(--unsure);
+  background: var(--unsure-soft);
+  color: var(--ink);
+  border-radius: 2px;
+  padding: 10px 13px;
+  font-size: 13px;
+  margin-top: 14px;
+}
+footer { border-top: 1px solid var(--rule); margin-top: 28px; padding-top: 16px; font-size: 12.5px; color: var(--ink-2); }
+footer p { margin: 0 0 7px; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>CORD Label Audit</h1>
+      <div class="head-meta" id="meta">20 test receipts</div>
+    </div>
+    <div class="progress">
+      <div class="bar" aria-hidden="true"><i id="barfill"></i></div>
+      <div class="count" id="count">0 / 20 reviewed</div>
+    </div>
+  </header>
+
+  <nav class="rail" id="rail" aria-label="Documents"></nav>
+
+  <div class="bench">
+    <figure class="shot" style="margin:0">
+      <img id="shot" alt="" src="">
+      <figcaption class="label" id="shotcap"></figcaption>
+    </figure>
+
+    <div class="panel">
+      <div class="doc-head">
+        <span class="doc-id" id="docid"></span>
+        <span class="tag" id="touched" hidden>touched by a bug fix</span>
+      </div>
+
+      <div>
+        <h2>Page text, as the model saw it</h2>
+        <div class="label" style="margin:3px 0 7px">reconstructed from CORD's own word-level OCR</div>
+        <pre class="receipt" id="page"></pre>
+      </div>
+
+      <div>
+        <h2>Scalar fields</h2>
+        <div class="label" style="margin:3px 0 7px">does the parsed integer match the amount the receipt prints?</div>
+        <div class="tscroll"><table id="scalars"></table></div>
+      </div>
+
+      <div>
+        <h2>Line items</h2>
+        <div class="label" style="margin:3px 0 7px">price is the whole line after quantity; unit_price is per unit</div>
+        <div class="tscroll"><table id="items"></table></div>
+        <p class="hint" id="ceiling"></p>
+      </div>
+
+      <div class="verdict">
+        <div>
+          <h2>Verdict for this document</h2>
+          <div class="label" style="margin:3px 0 0">flag individual rows above; this is the whole-document call</div>
+        </div>
+        <div class="vrow" id="vrow">
+          <button class="vbtn" data-v="ok" aria-pressed="false">Labels correct</button>
+          <button class="vbtn" data-v="wrong" aria-pressed="false">Label is wrong</button>
+          <button class="vbtn" data-v="unsure" aria-pressed="false">Cannot tell</button>
+        </div>
+        <textarea id="note" placeholder="What is wrong, or what you could not tell. Optional."></textarea>
+        <div class="saved" id="saved"></div>
+      </div>
+
+      <div class="nav">
+        <button class="navbtn" id="prev">&larr; Previous</button>
+        <button class="navbtn" id="next">Next &rarr;</button>
+        <span class="keys">j / k to move, 1 2 3 to judge</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice" id="offline" hidden></div>
+
+  <footer>
+    <p><b>Why this exists.</b> Two bugs in the ground-truth parser surfaced only
+    after 6,000 rollouts had been scored, and one of them scored correct
+    frontier output as wrong. Three automated gates passed on 100 documents
+    while the parser was still wrong, because a gate proves self-consistency,
+    not correctness.</p>
+    <p><b>How these 20 were chosen.</b> The four documents the two fixes touched
+    (test-013, test-099, test-047, test-067) by name, then 16 drawn from the
+    remaining 96 with seed 20261106, so the sample is reproducible.</p>
+    <p><b>The second question.</b> Count the item lines the page text prints and
+    compare with the count annotated. Where the page prints more, document exact
+    match is capped below 1.0 for that document whatever a model outputs.</p>
+  </footer>
+</div>
+
+<script type="application/json" id="audit-data">{"seed":20261106,"git":"374bd1f-DIRTY","split":"test","documents":[{"doc":"test-013","touched":true,"page":"BASO KUAH 1 43.636 43.636\nA.MINERAL GELAS 1 3,000 3,000\nTOTAL 46.636\nDPP 46.636\nTAX 10.00 % 4.664\nGRAND TOTAL 51.300\nTUNAI 52.000\nKEMBALI 700","page_lines":8,"scalars":[{"field":"subtotal","raw":["46.636","46.636"],"parsed":46636,"is_list":true},{"field":"tax","raw":"4.664","parsed":4664,"is_list":false},{"field":"total","raw":"51.300","parsed":51300,"is_list":false}],"items":[{"raw_nm":"BASO KUAH","raw_price":"43.636","raw_unitprice":"43.636","name":"BASO KUAH","price":43636,"unit_price":43636,"qty":1.0,"is_list":false},{"raw_nm":"A.MINERAL GELAS","raw_price":"3,000","raw_unitprice":"3,000","name":"A.MINERAL GELAS","price":3000,"unit_price":3000,"qty":1.0,"is_list":false}]},{"doc":"test-099","touched":true,"page":"1 FL-Xmas 30 Off 68,180\n1 PAKET SLICES 0\n1 FL Cake - French 0\nVanilla SLC\n1 PAKET SLICES 0\n1 FL Cake - Green 0\nTea SLC\n1 PAKET SLICES 0\n1 FL Cake - Belgium 0\nChoco SLC\nSUBTOTAL 68,180\nDISKON 0\nBIAYA TAMBAHAN 0\nPAJAK PPN 10 % 6,818\nPAJAK 0% 0\nBIAYA CC 0\nPEMBULATAN 2\nTOTAL 75,000\nTUNAI 0\nNON TUNAI 75,000\nKEMBALI 0","page_lines":21,"scalars":[{"field":"subtotal","raw":"68,180","parsed":68180,"is_list":false},{"field":"tax","raw":["6,818","0"],"parsed":6818,"is_list":true},{"field":"discount","raw":"0","parsed":0,"is_list":false},{"field":"total","raw":"75,000","parsed":75000,"is_list":false}],"items":[{"raw_nm":"FL-Xmas 30 Off","raw_price":"68,180","raw_unitprice":null,"name":"FL-Xmas 30 Off","price":68180,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-047","touched":true,"page":"COPIA 1 /GB 1 45,000.00\n2100252000358 45,000.00\nPLASTIC BAG RED CENTRAL SI 1 0.00\n9100544260074 0.00\nCOPIA 1 /GB 1 18,000.00\n2100252000358 18,000.00\nTotal 63,000.00\nTotal discount 0.00\nTotal quantity 3\nCard Payment DEBIT CARD\n63,000.00","page_lines":11,"scalars":[{"field":"discount","raw":"0.00","parsed":0,"is_list":false},{"field":"total","raw":"63,000.00","parsed":63000,"is_list":false}],"items":[{"raw_nm":"COPIA 1 /GB","raw_price":"45,000.00","raw_unitprice":"45,000.00","name":"COPIA 1 /GB","price":45000,"unit_price":45000,"qty":1.0,"is_list":false},{"raw_nm":"PLASTIC BAG RED CENTRAL SI","raw_price":"0.00","raw_unitprice":"0.00","name":"PLASTIC BAG RED CENTRAL SI","price":0,"unit_price":0,"qty":1.0,"is_list":false},{"raw_nm":"COPIA 1 /GB","raw_price":"18,000.00","raw_unitprice":"18,000.00","name":"COPIA 1 /GB","price":18000,"unit_price":18000,"qty":1.0,"is_list":false}]},{"doc":"test-067","touched":true,"page":"2005- CHEESE JOHN\n9.500,00 x1 9.500,00\nTotal Item: 1\nTotal. 9.500,00\nCash\nTendered: 9.500,00","page_lines":6,"scalars":[{"field":"total","raw":"9.500,00","parsed":9500,"is_list":false}],"items":[{"raw_nm":"CHEESE JOHN","raw_price":"9.500,00","raw_unitprice":"9.500,00","name":"CHEESE JOHN","price":9500,"unit_price":9500,"qty":1.0,"is_list":false}]},{"doc":"test-000","touched":false,"page":"901016 -TICKET CP\n2 60.000 60.000\nTOTAL DISC $ -60.000\nTAX 5.455\nSubtotal 60.000\nTOTAL (Qty 2.00 60.000\nEDC CIMB NIAGA No: xx7730 60.000","page_lines":7,"scalars":[{"field":"subtotal","raw":"60.000","parsed":60000,"is_list":false},{"field":"tax","raw":"5.455","parsed":5455,"is_list":false},{"field":"discount","raw":"-60.000","parsed":-60000,"is_list":false},{"field":"total","raw":"60.000","parsed":60000,"is_list":false}],"items":[{"raw_nm":"-TICKET CP","raw_price":"60.000","raw_unitprice":null,"name":"-TICKET CP","price":60000,"unit_price":null,"qty":2.0,"is_list":false}]},{"doc":"test-001","touched":false,"page":"J.STB PROMO 17500\nY.B.BAT 46000\nY.BASO PROM 27500\nTOTAL 91000\nCASH 91000","page_lines":5,"scalars":[{"field":"total","raw":"91000","parsed":91000,"is_list":false}],"items":[{"raw_nm":"J.STB PROMO","raw_price":"17500","raw_unitprice":null,"name":"J.STB PROMO","price":17500,"unit_price":null,"qty":null,"is_list":false},{"raw_nm":"Y.B.BAT","raw_price":"46000","raw_unitprice":null,"name":"Y.B.BAT","price":46000,"unit_price":null,"qty":null,"is_list":false},{"raw_nm":"Y.BASO PROM","raw_price":"27500","raw_unitprice":null,"name":"Y.BASO PROM","price":27500,"unit_price":null,"qty":null,"is_list":false}]},{"doc":"test-003","touched":false,"page":"1X @11000\nDONAT GULA 11,000\n1.00xITEMs\nSUBTOTAL 11,000\nTOTAL 11,000\nCASH 11,000","page_lines":6,"scalars":[{"field":"subtotal","raw":"11,000","parsed":11000,"is_list":false},{"field":"total","raw":"11,000","parsed":11000,"is_list":false}],"items":[{"raw_nm":"DONAT GULA","raw_price":"11,000","raw_unitprice":"@11000","name":"DONAT GULA","price":11000,"unit_price":11000,"qty":1.0,"is_list":false}]},{"doc":"test-006","touched":false,"page":"1 EGG TART 13,000\n2 CHOCO CUS ARD PASTRY 24,000\n1 REDBEAN BREAD 9,000\nTOTAL 46,000\nCASH 50,000\nCHANGE 4,000","page_lines":6,"scalars":[{"field":"total","raw":"46,000","parsed":46000,"is_list":false}],"items":[{"raw_nm":"EGG TART","raw_price":"13,000","raw_unitprice":null,"name":"EGG TART","price":13000,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"CHOCO CUS ARD PASTRY","raw_price":"24,000","raw_unitprice":null,"name":"CHOCO CUS ARD PASTRY","price":24000,"unit_price":null,"qty":2.0,"is_list":false},{"raw_nm":"REDBEAN BREAD","raw_price":"9,000","raw_unitprice":null,"name":"REDBEAN BREAD","price":9000,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-011","touched":false,"page":"1 BANABERRY FRESH CREAM CAK 230,000\nTOTAL CASH 230,000 230,000\nCHANGE 0","page_lines":3,"scalars":[{"field":"total","raw":"230,000","parsed":230000,"is_list":false}],"items":[{"raw_nm":"BANABERRY FRESH CREAM CAK","raw_price":"230,000","raw_unitprice":null,"name":"BANABERRY FRESH CREAM CAK","price":230000,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-015","touched":false,"page":"1 Lemon Tea (L) 25.000\n1 Caramel Small 38.000\nTOTAL 63.000\nCASH 70.000\nCHANGED 7.000","page_lines":5,"scalars":[{"field":"total","raw":"63.000","parsed":63000,"is_list":false}],"items":[{"raw_nm":"Lemon Tea (L)","raw_price":"25.000","raw_unitprice":null,"name":"Lemon Tea (L)","price":25000,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"Caramel Small","raw_price":"38.000","raw_unitprice":null,"name":"Caramel Small","price":38000,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-018","touched":false,"page":"Propolis Cair 1\n156000\n156000\nSub Tofal\n156000\nTunai\n156000\nKembalian Rp. 0","page_lines":8,"scalars":[{"field":"total","raw":"156000","parsed":156000,"is_list":false}],"items":[{"raw_nm":"Propolis Cair","raw_price":"156000","raw_unitprice":"156000","name":"Propolis Cair","price":156000,"unit_price":156000,"qty":1.0,"is_list":false}]},{"doc":"test-028","touched":false,"page":"SAMGYOPSAL 2 194,000\nSUL LUNG TANG 1 75,000\nMAKOLI 1 100,000\nSub Total 369,000\nService 18,450\nVAT 38,745\nDiscount 0\nTOTAL 426,195","page_lines":8,"scalars":[{"field":"subtotal","raw":"369,000","parsed":369000,"is_list":false},{"field":"tax","raw":"38,745","parsed":38745,"is_list":false},{"field":"service_charge","raw":"18,450","parsed":18450,"is_list":false},{"field":"discount","raw":"0","parsed":0,"is_list":false},{"field":"total","raw":"426,195","parsed":426195,"is_list":false}],"items":[{"raw_nm":"SAMGYOPSAL","raw_price":"194,000","raw_unitprice":null,"name":"SAMGYOPSAL","price":194000,"unit_price":null,"qty":2.0,"is_list":false},{"raw_nm":"SUL LUNG TANG","raw_price":"75,000","raw_unitprice":null,"name":"SUL LUNG TANG","price":75000,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"MAKOLI","raw_price":"100,000","raw_unitprice":null,"name":"MAKOLI","price":100000,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-031","touched":false,"page":"1 SALMON PESTO 85,500\n1 SALMON PESTO 85,500\nDisc -100% (ITM06) -85,500\nSUBTTL 85,500\nSVC CHG 6% 10,260\nPB1 10% 18,126\nTOTAL 113,886","page_lines":7,"scalars":[{"field":"subtotal","raw":"85,500","parsed":85500,"is_list":false},{"field":"tax","raw":"18,126","parsed":18126,"is_list":false},{"field":"service_charge","raw":"10,260","parsed":10260,"is_list":false},{"field":"total","raw":"113,886","parsed":113886,"is_list":false}],"items":[{"raw_nm":"SALMON PESTO","raw_price":"85,500","raw_unitprice":null,"name":"SALMON PESTO","price":85500,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"SALMON PESTO","raw_price":"85,500","raw_unitprice":null,"name":"SALMON PESTO","price":85500,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-035","touched":false,"page":"2 TWIST DONUT 18,000\n1 BANANA DONUT 11,000\n1 CREAMCHEESE BREAD 13,000\n1 FRANKFRUT SAUSAGE ROLL 12,000\nTOTAL 54,000\nCASH 104,000\nCHANGE 50,000","page_lines":7,"scalars":[{"field":"total","raw":"54,000","parsed":54000,"is_list":false}],"items":[{"raw_nm":"TWIST DONUT","raw_price":"18,000","raw_unitprice":null,"name":"TWIST DONUT","price":18000,"unit_price":null,"qty":2.0,"is_list":false},{"raw_nm":"BANANA DONUT","raw_price":"11,000","raw_unitprice":null,"name":"BANANA DONUT","price":11000,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"CREAMCHEESE BREAD","raw_price":"13,000","raw_unitprice":null,"name":"CREAMCHEESE BREAD","price":13000,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"FRANKFRUT SAUSAGE ROLL","raw_price":"12,000","raw_unitprice":null,"name":"FRANKFRUT SAUSAGE ROLL","price":12000,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-036","touched":false,"page":"1 XXL Crispy Chicken 40,000\n1 - Sedang 0\nITEMS: 1 40,000\nTotal 40,000\nCash 100,000 Change : 60,000\nPay","page_lines":6,"scalars":[{"field":"subtotal","raw":"40,000","parsed":40000,"is_list":false},{"field":"total","raw":"40,000","parsed":40000,"is_list":false}],"items":[{"raw_nm":"XXL Crispy Chicken","raw_price":"40,000","raw_unitprice":null,"name":"XXL Crispy Chicken","price":40000,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-042","touched":false,"page":"1 Chicken HCC. 1Pcs 15.000\nSub Total 15,000\nP.Rest 10 % 1,500\nTotal 16,500\nCash 50,000\nKembali 33,500\n1 Items,","page_lines":7,"scalars":[{"field":"subtotal","raw":"15,000","parsed":15000,"is_list":false},{"field":"tax","raw":"1,500","parsed":1500,"is_list":false},{"field":"total","raw":"16,500","parsed":16500,"is_list":false}],"items":[{"raw_nm":"Chicken HCC. 1Pcs","raw_price":"15.000","raw_unitprice":null,"name":"Chicken HCC. 1Pcs","price":15000,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-053","touched":false,"page":"1 Pecel Komplit + Nasi 42.000\n1 SOTO KUDUS 47.000\n2 Mineral Water 18.000\nSubtotal 107.000\nServi Charge 57 5.350\nPajak Rest 10% 11.235\n4 Total 123.585","page_lines":7,"scalars":[{"field":"subtotal","raw":"107.000","parsed":107000,"is_list":false},{"field":"tax","raw":"11.235","parsed":11235,"is_list":false},{"field":"service_charge","raw":"5.350","parsed":5350,"is_list":false},{"field":"total","raw":"123.585","parsed":123585,"is_list":false}],"items":[{"raw_nm":"Pecel Komplit + Nasi","raw_price":"42.000","raw_unitprice":null,"name":"Pecel Komplit + Nasi","price":42000,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"SOTO KUDUS","raw_price":"47.000","raw_unitprice":null,"name":"SOTO KUDUS","price":47000,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"Mineral Water","raw_price":"18.000","raw_unitprice":null,"name":"Mineral Water","price":18000,"unit_price":null,"qty":2.0,"is_list":false}]},{"doc":"test-082","touched":false,"page":"Chocolate Log Cake 1x 115,000 115,000\nSnowman Cake Chocolate 1x 60,000 60,000\nStrawberry Log Cake 2x 105,000 210,000\nSub Total 385,000\nGRAND TOTAL 385,000\nVISA MASTER 385,000\n8213\nCHANGE 0","page_lines":8,"scalars":[{"field":"subtotal","raw":"385,000","parsed":385000,"is_list":false},{"field":"total","raw":"385,000","parsed":385000,"is_list":false}],"items":[{"raw_nm":"Chocolate Log Cake","raw_price":"115,000","raw_unitprice":"115,000","name":"Chocolate Log Cake","price":115000,"unit_price":115000,"qty":1.0,"is_list":false},{"raw_nm":"Snowman Cake Chocolate","raw_price":"60,000","raw_unitprice":"60,000","name":"Snowman Cake Chocolate","price":60000,"unit_price":60000,"qty":1.0,"is_list":false},{"raw_nm":"Strawberry Log Cake","raw_price":"210,000","raw_unitprice":"105,000","name":"Strawberry Log Cake","price":210000,"unit_price":105000,"qty":2.0,"is_list":false}]},{"doc":"test-086","touched":false,"page":"1 Cheezemania 9,500\n1 Mamamia 12,500\nSUBTOTAL 22,000\nDUE 22,000\nCASH 52,000\nCHANGE 30,000\nTOTAL QTY 2 ITEM 2 PCS","page_lines":7,"scalars":[{"field":"subtotal","raw":"22,000","parsed":22000,"is_list":false},{"field":"total","raw":"22,000","parsed":22000,"is_list":false}],"items":[{"raw_nm":"Cheezemania","raw_price":"9,500","raw_unitprice":null,"name":"Cheezemania","price":9500,"unit_price":null,"qty":1.0,"is_list":false},{"raw_nm":"Mamamia","raw_price":"12,500","raw_unitprice":null,"name":"Mamamia","price":12500,"unit_price":null,"qty":1.0,"is_list":false}]},{"doc":"test-088","touched":false,"page":"STIX ECLAIRS\n1 x 19,000 19,000\nALMOND CREAM CHEESE\n1 x 28,000 28,000\nSUB TOTAL 47,000\nGRAND TOTAL 47,000\nVISA 8945 47,000\nCHANGE DUE 0","page_lines":8,"scalars":[{"field":"subtotal","raw":"47,000","parsed":47000,"is_list":false},{"field":"total","raw":"47,000","parsed":47000,"is_list":false}],"items":[{"raw_nm":"STIX ECLAIRS","raw_price":"19,000","raw_unitprice":"19,000","name":"STIX ECLAIRS","price":19000,"unit_price":19000,"qty":1.0,"is_list":false},{"raw_nm":"ALMOND CREAM CHEESE","raw_price":"28,000","raw_unitprice":"28,000","name":"ALMOND CREAM CHEESE","price":28000,"unit_price":28000,"qty":1.0,"is_list":false}]}]}</script>
+<script>
+(function () {
+  "use strict";
+  var DATA = JSON.parse(document.getElementById("audit-data").textContent);
+  var DOCS = DATA.documents;
+  var state = {};           // doc -> {verdict, note, flags:[]}
+  var idx = 0;
+  var db = null;
+  var noteTimer = null;
+
+  var el = function (id) { return document.getElementById(id); };
+  function rec(doc) {
+    if (!state[doc]) state[doc] = { verdict: "", note: "", flags: [] };
+    return state[doc];
+  }
+
+  // ---------- rail and progress ----------
+  function buildRail() {
+    var rail = el("rail");
+    rail.textContent = "";
+    DOCS.forEach(function (d, i) {
+      var b = document.createElement("button");
+      b.className = "chip";
+      b.type = "button";
+      b.dataset.i = String(i);
+      rail.appendChild(b);
+    });
+    rail.addEventListener("click", function (e) {
+      var b = e.target.closest(".chip");
+      if (b) show(Number(b.dataset.i));
+    });
+  }
+
+  function paintRail() {
+    var chips = el("rail").children;
+    var done = 0;
+    for (var i = 0; i < DOCS.length; i++) {
+      var d = DOCS[i], r = rec(d.doc), c = chips[i];
+      if (r.verdict) done++;
+      c.textContent = d.doc.replace("test-", "");
+      if (r.flags.length) {
+        var s = document.createElement("span");
+        s.className = "dot";
+        s.textContent = " ●";
+        c.appendChild(s);
+      }
+      if (r.verdict) { c.dataset.v = r.verdict; } else { delete c.dataset.v; }
+      c.setAttribute("aria-current", i === idx ? "true" : "false");
+      c.title = d.doc + (r.verdict ? " — " + r.verdict : " — not reviewed");
+    }
+    el("count").textContent = done + " / " + DOCS.length + " reviewed";
+    el("barfill").style.width = (done / DOCS.length * 100) + "%";
+  }
+
+  // ---------- one document ----------
+  function cell(row, cls, text) {
+    var td = document.createElement("td");
+    if (cls) td.className = cls;
+    td.textContent = text;
+    row.appendChild(td);
+    return td;
+  }
+
+  function headRow(table, names) {
+    var tr = table.insertRow();
+    names.forEach(function (n) {
+      var th = document.createElement("th");
+      th.textContent = n;
+      tr.appendChild(th);
+    });
+  }
+
+  function flagCell(row, doc, key) {
+    var td = document.createElement("td");
+    var b = document.createElement("button");
+    b.className = "flagbtn";
+    b.type = "button";
+    var on = rec(doc).flags.indexOf(key) >= 0;
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+    b.textContent = on ? "flagged" : "flag";
+    b.addEventListener("click", function () {
+      var r = rec(doc), at = r.flags.indexOf(key);
+      if (at >= 0) { r.flags.splice(at, 1); } else { r.flags.push(key); }
+      var nowOn = r.flags.indexOf(key) >= 0;
+      b.setAttribute("aria-pressed", nowOn ? "true" : "false");
+      b.textContent = nowOn ? "flagged" : "flag";
+      row.dataset.flagged = nowOn ? "1" : "0";
+      paintRail();
+      save(doc);
+    });
+    td.appendChild(b);
+    row.appendChild(td);
+  }
+
+  function show(i) {
+    idx = Math.max(0, Math.min(DOCS.length - 1, i));
+    var d = DOCS[idx], r = rec(d.doc);
+
+    el("docid").textContent = d.doc;
+    el("touched").hidden = !d.touched;
+    el("page").textContent = d.page;
+    el("shot").src = "img/" + d.doc + ".jpg";
+    el("shot").alt = "Photograph of receipt " + d.doc;
+    el("shotcap").textContent = d.doc + " page image";
+
+    var st = el("scalars");
+    st.textContent = "";
+    headRow(st, ["field", "CORD raw", "parsed", ""]);
+    if (!d.scalars.length) {
+      var tr0 = st.insertRow();
+      var td0 = cell(tr0, "", "No scalar fields annotated on this receipt.");
+      td0.colSpan = 4;
+      td0.style.color = "var(--ink-2)";
+    }
+    d.scalars.forEach(function (s) {
+      var tr = st.insertRow();
+      var key = "scalar:" + s.field;
+      tr.dataset.flagged = r.flags.indexOf(key) >= 0 ? "1" : "0";
+      cell(tr, "mono", s.field);
+      var raw = cell(tr, "raw", JSON.stringify(s.raw));
+      if (s.is_list) {
+        var m = document.createElement("span");
+        m.className = "listmark";
+        m.textContent = "  list";
+        raw.appendChild(m);
+      }
+      cell(tr, "num", s.parsed === null ? "null" : String(s.parsed));
+      flagCell(tr, d.doc, key);
+    });
+
+    var it = el("items");
+    it.textContent = "";
+    headRow(it, ["#", "CORD nm", "CORD unitprice", "CORD price", "parsed name",
+                 "unit_price", "price", "qty", ""]);
+    if (!d.items.length) {
+      var tr1 = it.insertRow();
+      var td1 = cell(tr1, "", "No line items annotated on this receipt.");
+      td1.colSpan = 9;
+      td1.style.color = "var(--ink-2)";
+    }
+    d.items.forEach(function (item, n) {
+      var tr = it.insertRow();
+      var key = "item:" + n;
+      tr.dataset.flagged = r.flags.indexOf(key) >= 0 ? "1" : "0";
+      cell(tr, "num", String(n + 1));
+      var nm = cell(tr, "raw", JSON.stringify(item.raw_nm));
+      if (item.is_list) {
+        var m2 = document.createElement("span");
+        m2.className = "listmark";
+        m2.textContent = "  list";
+        nm.appendChild(m2);
+      }
+      cell(tr, "raw", JSON.stringify(item.raw_unitprice === undefined
+        ? null : item.raw_unitprice));
+      cell(tr, "raw", JSON.stringify(item.raw_price));
+      cell(tr, "mono", item.name);
+      var up = cell(tr, "num",
+        item.unit_price === null || item.unit_price === undefined
+          ? "null" : String(item.unit_price));
+      cell(tr, "num", item.price === null ? "null" : String(item.price));
+      cell(tr, "num", item.qty === null ? "null" : String(item.qty));
+      // Where quantity multiplies, the two amounts differ and the distinction
+      // is the whole point of the row. test-082 is the case that found this.
+      if (item.unit_price !== null && item.unit_price !== undefined
+          && item.price !== null && item.unit_price !== item.price) {
+        up.style.color = "var(--unsure)";
+        up.style.fontWeight = "600";
+      }
+      flagCell(tr, d.doc, key);
+    });
+
+    var ceil = el("ceiling");
+    ceil.textContent = "";
+    ceil.className = "hint";
+    var b1 = document.createElement("b");
+    b1.textContent = String(d.items.length);
+    ceil.appendChild(document.createTextNode("CORD annotates "));
+    ceil.appendChild(b1);
+    ceil.appendChild(document.createTextNode(
+      d.items.length === 1 ? " item line. The page text above has " : " item lines. The page text above has "));
+    var b2 = document.createElement("b");
+    b2.textContent = String(d.page_lines);
+    ceil.appendChild(b2);
+    ceil.appendChild(document.createTextNode(
+      " printed rows in total, including the subtotal block. Count the ones that are items."));
+    if (d.page_lines >= d.items.length * 5 + 6) ceil.className = "hint warn";
+
+    paintVerdict();
+    paintRail();
+    el("prev").disabled = idx === 0;
+    el("next").disabled = idx === DOCS.length - 1;
+    el("saved").textContent = "";
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
+
+  function paintVerdict() {
+    var r = rec(DOCS[idx].doc);
+    var btns = el("vrow").children;
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].setAttribute("aria-pressed", btns[i].dataset.v === r.verdict ? "true" : "false");
+    }
+    el("note").value = r.note || "";
+  }
+
+  // ---------- persistence ----------
+  // One write at a time per document: a verdict click and the note's debounce
+  // can both fire for the same receipt, so writes for a document are chained.
+  var queue = {};
+  function save(doc) {
+    if (!db) {
+      el("saved").textContent = "not saved: no connection to the store";
+      return;
+    }
+    el("saved").textContent = "saving…";
+    var run = function () {
+      var r = rec(doc);
+      return db.doc("audit/" + doc).set({
+        doc: doc,
+        verdict: r.verdict,
+        note: r.note,
+        flags: r.flags.slice(),
+        updatedAt: new Date().toISOString()
+      }).then(function () {
+        if (DOCS[idx].doc === doc) {
+          el("saved").textContent = "saved " + new Date().toLocaleTimeString();
+        }
+      }, function (e) {
+        if (DOCS[idx].doc === doc) {
+          el("saved").textContent = "not saved: " + ((e && e.code) || "error");
+        }
+      });
+    };
+    queue[doc] = (queue[doc] || Promise.resolve()).then(run, run);
+  }
+
+  el("vrow").addEventListener("click", function (e) {
+    var b = e.target.closest(".vbtn");
+    if (!b) return;
+    var doc = DOCS[idx].doc, r = rec(doc);
+    r.verdict = (r.verdict === b.dataset.v) ? "" : b.dataset.v;
+    paintVerdict();
+    paintRail();
+    save(doc);
+  });
+
+  el("note").addEventListener("input", function () {
+    var doc = DOCS[idx].doc;
+    rec(doc).note = el("note").value;
+    el("saved").textContent = "unsaved…";
+    if (noteTimer) clearTimeout(noteTimer);
+    noteTimer = setTimeout(function () { save(doc); }, 900);
+  });
+  el("note").addEventListener("blur", function () {
+    if (noteTimer) { clearTimeout(noteTimer); noteTimer = null; }
+    save(DOCS[idx].doc);
+  });
+
+  el("prev").addEventListener("click", function () { show(idx - 1); });
+  el("next").addEventListener("click", function () { show(idx + 1); });
+  document.addEventListener("keydown", function (e) {
+    if (e.target.tagName === "TEXTAREA" || e.metaKey || e.ctrlKey || e.altKey) return;
+    var map = { "1": "ok", "2": "wrong", "3": "unsure" };
+    if (e.key === "j" || e.key === "ArrowRight") { show(idx + 1); }
+    else if (e.key === "k" || e.key === "ArrowLeft") { show(idx - 1); }
+    else if (map[e.key]) {
+      var doc = DOCS[idx].doc, r = rec(doc);
+      r.verdict = (r.verdict === map[e.key]) ? "" : map[e.key];
+      paintVerdict();
+      paintRail();
+      save(doc);
+    } else { return; }
+    e.preventDefault();
+  });
+
+  // ---------- first frame, then the store ----------
+  el("meta").textContent = DATA.documents.length + " test receipts · seed "
+    + DATA.seed + " · " + DATA.git;
+  buildRail();
+  show(0);
+
+  var settled = false;
+  var timer = setTimeout(function () {
+    if (settled) return;
+    settled = true;
+    var n = el("offline");
+    n.hidden = false;
+    n.textContent = "The store did not answer, so verdicts on this device will "
+      + "not be recorded. Everything else on the page still works.";
+  }, 10000);
+
+  if (window.claude && window.claude.use) {
+    window.claude.use("db").then(function (d) {
+      db = d;
+      if (!db) {
+        settled = true;
+        clearTimeout(timer);
+        var n = el("offline");
+        n.hidden = false;
+        n.textContent = "Sign in to record verdicts. The receipts and labels are "
+          + "all here to read either way.";
+        return;
+      }
+      return db.collection("audit").get().then(function (snap) {
+        settled = true;
+        clearTimeout(timer);
+        (snap && snap.docs ? snap.docs : []).forEach(function (s) {
+          var v = s.exists ? s.data() : null;
+          if (!v || typeof v.doc !== "string") return;
+          state[v.doc] = {
+            verdict: typeof v.verdict === "string" ? v.verdict : "",
+            note: typeof v.note === "string" ? v.note : "",
+            flags: Array.isArray(v.flags)
+              ? v.flags.filter(function (f) { return typeof f === "string"; })
+              : []
+          };
+        });
+        show(idx);
+      });
+    }).catch(function () {
+      settled = true;
+      clearTimeout(timer);
+      var n = el("offline");
+      n.hidden = false;
+      n.textContent = "Could not reach the store, so verdicts will not be "
+        + "recorded. Everything else on the page still works.";
+    });
+  }
+})();
+</script>

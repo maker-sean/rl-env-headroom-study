@@ -1,0 +1,71 @@
+# Hosted RL on Qwen3.5-4B, with in-run evals on the DEV split only.
+#
+# Comparability intent: every sampling and prompt setting is pinned to the same
+# values the gateway eval run used (temperature 0.7, max 1500 completion
+# tokens, prompt v1.0.0, null harness), so the 4B's in-run numbers can be put
+# beside the gateway tiers with a stated caveat rather than a guess.
+#
+# Test-split hygiene: eval sources below point at `validation`. The `test`
+# split is NOT evaluated during training, so checkpoint selection cannot tune
+# on it.
+
+name = "doc-extraction-rl-qwen35-4b"
+max_steps = 50
+seq_len = 4096
+
+[model]
+name = "Qwen/Qwen3.5-4B"
+
+[deployment]
+num_train_gpus = 1
+num_infer_gpus = 1
+
+[inference]
+
+[trainer]
+
+[orchestrator]
+batch_size = 64
+
+[[orchestrator.train.source]]
+name = "doc-extraction-train"
+
+[orchestrator.train.source.env.taskset]
+id = "doc-extraction-study"
+split = "train"
+condition = "ocr_text"
+limit = 300
+
+[orchestrator.train.source.env.agent.harness]
+id = "null"
+
+[orchestrator.train.source.env.agent.runtime]
+type = "subprocess"
+
+[orchestrator.train.source.env.agent.sampling]
+temperature = 0.7
+
+[orchestrator.eval]
+interval = 25
+
+[[orchestrator.eval.source]]
+name = "doc-extraction-dev"
+
+[orchestrator.eval.source.env.taskset]
+id = "doc-extraction-study"
+split = "validation"
+condition = "ocr_text"
+limit = 100
+
+[orchestrator.eval.source.env.agent.harness]
+id = "null"
+
+[orchestrator.eval.source.env.agent.runtime]
+type = "subprocess"
+
+[orchestrator.eval.source.env.agent.sampling]
+temperature = 0.7
+
+[ckpt]
+interval = 25
+keep_last = 2

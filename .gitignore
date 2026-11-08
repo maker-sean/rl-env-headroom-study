@@ -1,0 +1,32 @@
+# Private working instructions, never published
+CLAUDE.md
+PROMPT.md
+PUBLISH.md
+private/
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+dist/
+
+# Data and caches (large, re-downloadable)
+data/
+.cache/
+outputs/
+
+# Local state from `prime env push`
+.prime/
+
+# OS
+.DS_Store

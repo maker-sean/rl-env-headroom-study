@@ -1,0 +1,171 @@
+{
+  "tag": "smoke-d7",
+  "split": "validation",
+  "docs": 2,
+  "samples": 1,
+  "temperature": 0.7,
+  "harness": "null",
+  "concurrent": 2,
+  "tiers": {
+    "small": "qwen/qwen3.5-9b",
+    "mid": "qwen/qwen3-vl-30b-a3b-instruct",
+    "frontier": "anthropic/claude-opus-5.5"
+  },
+  "prices": {
+    "qwen/qwen3.5-9b": [
+      0.063,
+      0.093
+    ],
+    "qwen/qwen3-vl-30b-a3b-instruct": [
+      0.2,
+      0.7
+    ],
+    "anthropic/claude-opus-5.5": [
+      4.0,
+      20.0
+    ]
+  },
+  "conditions": [
+    "ocr_text"
+  ],
+  "prompt_variant": "v1.1.0-subtotal",
+  "git": "7cfb7f1",
+  "started": "2026-11-06T06:52:22-0500",
+  "runs": {
+    "mid|ocr_text": {
+      "model": "qwen/qwen3-vl-30b-a3b-instruct",
+      "run_name": "smoke-d7-validation-ocr_text-qwen3-vl-30b-a3b-instruct",
+      "rollouts": 2,
+      "ok": 2,
+      "failed": 0,
+      "reward_mean": 0.9587,
+      "reward_sd": 0.0038,
+      "in_tok_total": 752,
+      "out_tok_total": 256,
+      "in_tok_per_call": 376,
+      "measured_cost_usd": 0.00033,
+      "rows": [
+        {
+          "doc_id": "validation-ocr_text-001",
+          "doc_index": 1,
+          "condition": "ocr_text",
+          "reward": 0.9625,
+          "components": {
+            "grounding": 0.75,
+            "line_item_f1": 1.0,
+            "scalar_f1": 1.0,
+            "schema_valid": 1.0
+          },
+          "metrics": {
+            "doc_exact_match": 1.0,
+            "items_sum_exact": 1.0,
+            "items_sum_within_tol": 1.0,
+            "scalar_tp": 1.0,
+            "scalar_fp": 0.0,
+            "scalar_fn": 0.0,
+            "invented_subtotal": 0.0,
+            "missed_subtotal": 0.0,
+            "wrong_subtotal": 0.0,
+            "invented_tax": 0.0,
+            "missed_tax": 0.0,
+            "wrong_tax": 0.0,
+            "invented_service_charge": 0.0,
+            "missed_service_charge": 0.0,
+            "wrong_service_charge": 0.0,
+            "invented_discount": 0.0,
+            "missed_discount": 0.0,
+            "wrong_discount": 0.0,
+            "invented_total": 0.0,
+            "missed_total": 0.0,
+            "wrong_total": 0.0,
+            "item_tp": 1.0,
+            "item_fp": 0.0,
+            "item_fn": 0.0,
+            "item_name_matched": 1.0,
+            "item_price_wrong": 0.0,
+            "qty_correct": 1.0,
+            "qty_evaluable": 1.0,
+            "values_emitted": 4.0,
+            "values_grounded": 4.0,
+            "n_pred_items": 1.0,
+            "n_true_items": 1.0,
+            "pred_looked_decimal": 0.0,
+            "line_item_f1_fuzzy_names": 1.0,
+            "format_clean": 1.0,
+            "format_fenced": 0.0,
+            "format_embedded": 0.0,
+            "format_invalid": 0.0,
+            "input_tokens": 366.0,
+            "output_tokens": 94.0,
+            "turns": 1.0
+          },
+          "ok": true,
+          "stop": "agent_completed",
+          "in_tok": 366,
+          "out_tok": 94
+        },
+        {
+          "doc_id": "validation-ocr_text-000",
+          "doc_index": 0,
+          "condition": "ocr_text",
+          "reward": 0.955,
+          "components": {
+            "grounding": 0.7,
+            "line_item_f1": 1.0,
+            "scalar_f1": 1.0,
+            "schema_valid": 1.0
+          },
+          "metrics": {
+            "doc_exact_match": 1.0,
+            "items_sum_exact": 1.0,
+            "items_sum_within_tol": 1.0,
+            "scalar_tp": 1.0,
+            "scalar_fp": 0.0,
+            "scalar_fn": 0.0,
+            "invented_subtotal": 0.0,
+            "missed_subtotal": 0.0,
+            "wrong_subtotal": 0.0,
+            "invented_tax": 0.0,
+            "missed_tax": 0.0,
+            "wrong_tax": 0.0,
+            "invented_service_charge": 0.0,
+            "missed_service_charge": 0.0,
+            "wrong_service_charge": 0.0,
+            "invented_discount": 0.0,
+            "missed_discount": 0.0,
+            "wrong_discount": 0.0,
+            "invented_total": 0.0,
+            "missed_total": 0.0,
+            "wrong_total": 0.0,
+            "item_tp": 3.0,
+            "item_fp": 0.0,
+            "item_fn": 0.0,
+            "item_name_matched": 3.0,
+            "item_price_wrong": 0.0,
+            "qty_correct": 3.0,
+            "qty_evaluable": 3.0,
+            "values_emitted": 10.0,
+            "values_grounded": 10.0,
+            "n_pred_items": 3.0,
+            "n_true_items": 3.0,
+            "pred_looked_decimal": 0.0,
+            "line_item_f1_fuzzy_names": 1.0,
+            "format_clean": 1.0,
+            "format_fenced": 0.0,
+            "format_embedded": 0.0,
+            "format_invalid": 0.0,
+            "input_tokens": 386.0,
+            "output_tokens": 162.0,
+            "turns": 1.0
+          },
+          "ok": true,
+          "stop": "agent_completed",
+          "in_tok": 386,
+          "out_tok": 162
+        }
+      ]
+    }
+  },
+  "finished": "2026-11-06T06:52:45-0500",
+  "measured_total_usd": 0.0003
+}

@@ -1,0 +1,416 @@
+{
+  "source": "results/full_test_fixed.json",
+  "git": "92f6e85",
+  "seed": 20261106,
+  "bootstrap_resamples": 10000,
+  "schemes": {
+    "registered": {
+      "weights": {
+        "schema_valid": 0.05,
+        "scalar_f1": 0.45,
+        "line_item_f1": 0.35,
+        "grounding": 0.15
+      },
+      "cell_means": {
+        "small|ocr_text": 0.7271817930066479,
+        "small|image": 0.7168582009533846,
+        "mid|ocr_text": 0.7985019214194773,
+        "mid|image": 0.8202887616708584,
+        "frontier|ocr_text": 0.9121241364118338,
+        "frontier|image": 0.9208433626023099
+      },
+      "tier_order_holds": true,
+      "condition_deltas": {
+        "small": {
+          "delta": 0.010323592053263298,
+          "ci_low": -0.019245308402137472,
+          "ci_high": 0.041623301055574824,
+          "spans_zero": true
+        },
+        "mid": {
+          "delta": -0.021786840251381116,
+          "ci_low": -0.04750453526953591,
+          "ci_high": 0.004316509747288508,
+          "spans_zero": true
+        },
+        "frontier": {
+          "delta": -0.008719226190476189,
+          "ci_low": -0.028650416666666664,
+          "ci_high": 0.010995476190476193,
+          "spans_zero": true
+        }
+      },
+      "tier_gaps": {
+        "frontier-mid|ocr_text": {
+          "gap": 0.1136222149923565,
+          "ci_low": 0.08248250373688945,
+          "ci_high": 0.145856312299907,
+          "excludes_zero": true
+        },
+        "mid-small|ocr_text": {
+          "gap": 0.0713201284128294,
+          "ci_low": 0.02924934377439705,
+          "ci_high": 0.11628093970791373,
+          "excludes_zero": true
+        },
+        "frontier-mid|image": {
+          "gap": 0.10055460093145158,
+          "ci_low": 0.07414060485771674,
+          "ci_high": 0.12915904435505723,
+          "excludes_zero": true
+        },
+        "mid-small|image": {
+          "gap": 0.10343056071747382,
+          "ci_low": 0.05640299747592216,
+          "ci_high": 0.1539247997406714,
+          "excludes_zero": true
+        }
+      },
+      "mde": {
+        "small": 0.030434304728856148,
+        "mid": 0.025910522508412206,
+        "frontier": 0.01982294642857143
+      }
+    },
+    "equal": {
+      "weights": {
+        "schema_valid": 0.25,
+        "scalar_f1": 0.25,
+        "line_item_f1": 0.25,
+        "grounding": 0.25
+      },
+      "cell_means": {
+        "small|ocr_text": 0.8030069565983814,
+        "small|image": 0.7889785703824996,
+        "mid|ocr_text": 0.8344174690932201,
+        "mid|image": 0.8499625469903169,
+        "frontier|ocr_text": 0.9349172114800405,
+        "frontier|image": 0.9397794138609928
+      },
+      "tier_order_holds": true,
+      "condition_deltas": {
+        "small": {
+          "delta": 0.01402838621588175,
+          "ci_low": -0.007801025198548326,
+          "ci_high": 0.03669912889622495,
+          "spans_zero": true
+        },
+        "mid": {
+          "delta": -0.015545077897096811,
+          "ci_low": -0.03364613164189264,
+          "ci_high": 0.0030778947566503173,
+          "spans_zero": true
+        },
+        "frontier": {
+          "delta": -0.004862202380952382,
+          "ci_low": -0.01895982142857143,
+          "ci_high": 0.008846428571428566,
+          "spans_zero": true
+        }
+      },
+      "tier_gaps": {
+        "frontier-mid|ocr_text": {
+          "gap": 0.10049974238682033,
+          "ci_low": 0.0777337673249758,
+          "ci_high": 0.12368929664535232,
+          "excludes_zero": true
+        },
+        "mid-small|ocr_text": {
+          "gap": 0.031410512494838734,
+          "ci_low": 0.002968105131724132,
+          "ci_high": 0.06222639253320809,
+          "excludes_zero": true
+        },
+        "frontier-mid|image": {
+          "gap": 0.0898168668706759,
+          "ci_low": 0.07008215830174369,
+          "ci_high": 0.11057452680331702,
+          "excludes_zero": true
+        },
+        "mid-small|image": {
+          "gap": 0.0609839766078173,
+          "ci_low": 0.028781854649875722,
+          "ci_high": 0.09500875567325441,
+          "excludes_zero": true
+        }
+      },
+      "mde": {
+        "small": 0.02225007704738664,
+        "mid": 0.018362013199271478,
+        "frontier": 0.013903124999999999
+      }
+    },
+    "scalars_only": {
+      "weights": {
+        "schema_valid": 0.0,
+        "scalar_f1": 1.0,
+        "line_item_f1": 0.0,
+        "grounding": 0.0
+      },
+      "cell_means": {
+        "small|ocr_text": 0.731715873015873,
+        "small|image": 0.7211992063492063,
+        "mid|ocr_text": 0.8352746031746031,
+        "mid|image": 0.8704992063492063,
+        "frontier|ocr_text": 0.9378333333333333,
+        "frontier|image": 0.9511666666666667
+      },
+      "tier_order_holds": true,
+      "condition_deltas": {
+        "small": {
+          "delta": 0.010516666666666667,
+          "ci_low": -0.02986666666666667,
+          "ci_high": 0.05508888888888889,
+          "spans_zero": true
+        },
+        "mid": {
+          "delta": -0.03522460317460318,
+          "ci_low": -0.06992380952380953,
+          "ci_high": -0.000985714285714291,
+          "spans_zero": false
+        },
+        "frontier": {
+          "delta": -0.013333333333333332,
+          "ci_low": -0.034,
+          "ci_high": 0.004,
+          "spans_zero": true
+        }
+      },
+      "tier_gaps": {
+        "frontier-mid|ocr_text": {
+          "gap": 0.10255873015873017,
+          "ci_low": 0.05509841269841271,
+          "ci_high": 0.15154285714285717,
+          "excludes_zero": true
+        },
+        "mid-small|ocr_text": {
+          "gap": 0.10355873015873016,
+          "ci_low": 0.04780952380952381,
+          "ci_high": 0.1628388888888889,
+          "excludes_zero": true
+        },
+        "frontier-mid|image": {
+          "gap": 0.08066746031746032,
+          "ci_low": 0.0391,
+          "ci_high": 0.12441666666666668,
+          "excludes_zero": true
+        },
+        "mid-small|image": {
+          "gap": 0.14930000000000002,
+          "ci_low": 0.08788015873015873,
+          "ci_high": 0.21583730158730158,
+          "excludes_zero": true
+        }
+      },
+      "mde": {
+        "small": 0.04247777777777778,
+        "mid": 0.03446904761904762,
+        "frontier": 0.019000000000000003
+      }
+    },
+    "line_items_only": {
+      "weights": {
+        "schema_valid": 0.0,
+        "scalar_f1": 0.0,
+        "line_item_f1": 1.0,
+        "grounding": 0.0
+      },
+      "cell_means": {
+        "small|ocr_text": 0.6293142857142857,
+        "small|image": 0.6330564840956145,
+        "mid|ocr_text": 0.7363452950558214,
+        "mid|image": 0.7458073578595318,
+        "frontier|ocr_text": 0.8491190476190477,
+        "frontier|image": 0.8581285714285715
+      },
+      "tier_order_holds": true,
+      "condition_deltas": {
+        "small": {
+          "delta": -0.0037421983813288114,
+          "ci_low": -0.06418896103896105,
+          "ci_high": 0.0580989898989899,
+          "spans_zero": true
+        },
+        "mid": {
+          "delta": -0.009462062803710402,
+          "ci_low": -0.07148761358143509,
+          "ci_high": 0.05605828760611369,
+          "spans_zero": true
+        },
+        "frontier": {
+          "delta": -0.009009523809523806,
+          "ci_low": -0.061819047619047614,
+          "ci_high": 0.04150476190476191,
+          "spans_zero": true
+        }
+      },
+      "tier_gaps": {
+        "frontier-mid|ocr_text": {
+          "gap": 0.11277375256322625,
+          "ci_low": 0.05030116959064328,
+          "ci_high": 0.17853102453102454,
+          "excludes_zero": true
+        },
+        "mid-small|ocr_text": {
+          "gap": 0.10703100934153566,
+          "ci_low": 0.033371067821067815,
+          "ci_high": 0.18135707070707072,
+          "excludes_zero": true
+        },
+        "frontier-mid|image": {
+          "gap": 0.11232121356903965,
+          "ci_low": 0.05485744545309762,
+          "ci_high": 0.17372393162393163,
+          "excludes_zero": true
+        },
+        "mid-small|image": {
+          "gap": 0.11275087376391725,
+          "ci_low": 0.04539646150950499,
+          "ci_high": 0.18282858252858253,
+          "excludes_zero": true
+        }
+      },
+      "mde": {
+        "small": 0.06114397546897547,
+        "mid": 0.06377295059377439,
+        "frontier": 0.05166190476190476
+      }
+    },
+    "no_grounding": {
+      "weights": {
+        "schema_valid": 0.05,
+        "scalar_f1": 0.53,
+        "line_item_f1": 0.42,
+        "grounding": 0.0
+      },
+      "cell_means": {
+        "small|ocr_text": 0.7021214126984127,
+        "small|image": 0.6978693026852375,
+        "mid|ocr_text": 0.8019605636059847,
+        "mid|image": 0.8246036696660827,
+        "frontier|ocr_text": 0.9036816666666667,
+        "frontier|image": 0.9145323333333334
+      },
+      "tier_order_holds": true,
+      "condition_deltas": {
+        "small": {
+          "delta": 0.004252110013175228,
+          "ci_low": -0.029277322510822507,
+          "ci_high": 0.03915191411004453,
+          "spans_zero": true
+        },
+        "mid": {
+          "delta": -0.022643106060098048,
+          "ci_low": -0.052412343433835426,
+          "ci_high": 0.007446150292245256,
+          "spans_zero": true
+        },
+        "frontier": {
+          "delta": -0.010850666666666666,
+          "ci_low": -0.03461,
+          "ci_high": 0.01237866666666666,
+          "spans_zero": true
+        }
+      },
+      "tier_gaps": {
+        "frontier-mid|ocr_text": {
+          "gap": 0.10172110306068201,
+          "ci_low": 0.06735204101161996,
+          "ci_high": 0.13767273137388927,
+          "excludes_zero": true
+        },
+        "mid-small|ocr_text": {
+          "gap": 0.09983915090757196,
+          "ci_low": 0.051430148743069795,
+          "ci_high": 0.1523422995367206,
+          "excludes_zero": true
+        },
+        "frontier-mid|image": {
+          "gap": 0.08992866366725062,
+          "ci_low": 0.06085107209215904,
+          "ci_high": 0.12150812709030101,
+          "excludes_zero": true
+        },
+        "mid-small|image": {
+          "gap": 0.12673436698084523,
+          "ci_low": 0.07304548085248085,
+          "ci_high": 0.184712425755404,
+          "excludes_zero": true
+        }
+      },
+      "mde": {
+        "small": 0.03421461831043352,
+        "mid": 0.02992924686304034,
+        "frontier": 0.023494333333333332
+      }
+    },
+    "grounding_heavy": {
+      "weights": {
+        "schema_valid": 0.05,
+        "scalar_f1": 0.25,
+        "line_item_f1": 0.2,
+        "grounding": 0.5
+      },
+      "cell_means": {
+        "small|ocr_text": 0.7842906592285087,
+        "small|image": 0.7599903939490132,
+        "mid|ocr_text": 0.789112698876043,
+        "mid|image": 0.8085580850354727,
+        "frontier|ocr_text": 0.9306403753410333,
+        "frontier|image": 0.9343285896267475
+      },
+      "tier_order_holds": true,
+      "condition_deltas": {
+        "small": {
+          "delta": 0.02430026527949548,
+          "ci_low": 4.508524300017192e-05,
+          "ci_high": 0.05016715412626094,
+          "spans_zero": false
+        },
+        "mid": {
+          "delta": -0.019445386159429676,
+          "ci_low": -0.03805889730923183,
+          "ci_high": -0.0008663115181612852,
+          "spans_zero": false
+        },
+        "frontier": {
+          "delta": -0.0036882142857142886,
+          "ci_low": -0.016261904761904762,
+          "ci_high": 0.008585119047619045,
+          "spans_zero": true
+        }
+      },
+      "tier_gaps": {
+        "frontier-mid|ocr_text": {
+          "gap": 0.14152767646499023,
+          "ci_low": 0.11482515822531458,
+          "ci_high": 0.16824213832610488,
+          "excludes_zero": true
+        },
+        "mid-small|ocr_text": {
+          "gap": 0.004822039647534251,
+          "ci_low": -0.025293893697646282,
+          "ci_high": 0.03647804877617374,
+          "excludes_zero": false
+        },
+        "frontier-mid|image": {
+          "gap": 0.12577050459127484,
+          "ci_low": 0.10255419046199549,
+          "ci_high": 0.14972586835423926,
+          "excludes_zero": true
+        },
+        "mid-small|image": {
+          "gap": 0.048567691086459405,
+          "ci_low": 0.015128912319603387,
+          "ci_high": 0.08411265556279675,
+          "excludes_zero": true
+        }
+      },
+      "mde": {
+        "small": 0.025061034441630384,
+        "mid": 0.01859629289553527,
+        "frontier": 0.012423511904761902
+      }
+    }
+  }
+}

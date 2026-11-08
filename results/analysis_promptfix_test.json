@@ -1,0 +1,74 @@
+{
+  "source": "results/promptfix_test.json",
+  "git": "7cfb7f1-DIRTY",
+  "split": "test",
+  "tag": "promptfix",
+  "docs": 100,
+  "samples": 10,
+  "temperature": 0.7,
+  "harness": "null",
+  "cells": {
+    "mid|ocr_text": {
+      "model": "qwen/qwen3-vl-30b-a3b-instruct",
+      "n": 1000,
+      "docs": 100,
+      "reward_mean": 0.83009522205934,
+      "reward_sd": 0.20450314053957866,
+      "within_doc_sd_mean": 0.01917242226243193,
+      "components": {
+        "schema_valid": 1.0,
+        "scalar_f1": 0.9013698412698413,
+        "line_item_f1": 0.730955684666211,
+        "grounding": 0.7909620256982508
+      },
+      "doc_exact_match": 0.497,
+      "n_exact": 497,
+      "pass@1": 0.497,
+      "pass@3": 0.523,
+      "pass@5": 0.5297222222222222,
+      "pass@10": 0.54,
+      "cost_usd": 0.20235,
+      "cost_per_rollout": 0.00020235,
+      "cost_per_correct": 0.00040714285714285717,
+      "in_tok_per_call": 408.2,
+      "latency": {
+        "model_s_mean": 7.596630467414856,
+        "model_s_p50": 6.124830961227417,
+        "model_s_p95": 16.442692756652832,
+        "agent_s_mean": 9.041381964445113
+      }
+    }
+  },
+  "measured_total_usd": 0.2024,
+  "condition_deltas": {},
+  "taxonomy": {
+    "mid|ocr_text": {
+      "n": 1000,
+      "invented": {
+        "discount": 23,
+        "total": 42,
+        "subtotal": 53,
+        "tax": 7,
+        "service_charge": 10
+      },
+      "missed": {
+        "tax": 60,
+        "total": 4
+      },
+      "wrong_value": {
+        "discount": 5,
+        "subtotal": 6,
+        "tax": 16,
+        "total": 20,
+        "service_charge": 20
+      },
+      "format": {
+        "clean": 1000
+      },
+      "item_name_unmatched": 908,
+      "item_price_wrong": 119,
+      "rollouts_with_ungrounded_value": 206,
+      "pct_rollouts_with_ungrounded_value": 0.206
+    }
+  }
+}

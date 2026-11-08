@@ -1,0 +1,1418 @@
+{
+  "counts": {
+    "magnitude_1000x": {
+      "small|ocr_text": 141,
+      "small|image": 138,
+      "mid|ocr_text": 4,
+      "mid|image": 3,
+      "frontier|ocr_text": 0,
+      "frontier|image": 0
+    },
+    "item_name_mismatch": {
+      "small|ocr_text": 311,
+      "small|image": 304,
+      "mid|ocr_text": 233,
+      "mid|image": 270,
+      "frontier|ocr_text": 151,
+      "frontier|image": 160
+    },
+    "price_wrong_on_matched": {
+      "small|ocr_text": 155,
+      "small|image": 183,
+      "mid|ocr_text": 99,
+      "mid|image": 83,
+      "frontier|ocr_text": 6,
+      "frontier|image": 2
+    },
+    "invented_subtotal": {
+      "small|ocr_text": 254,
+      "small|image": 247,
+      "mid|ocr_text": 282,
+      "mid|image": 170,
+      "frontier|ocr_text": 21,
+      "frontier|image": 20
+    },
+    "magnitude_10x": {
+      "small|ocr_text": 2,
+      "small|image": 13,
+      "mid|ocr_text": 0,
+      "mid|image": 0,
+      "frontier|ocr_text": 0,
+      "frontier|image": 0
+    },
+    "missed_tax": {
+      "small|ocr_text": 75,
+      "small|image": 65,
+      "mid|ocr_text": 62,
+      "mid|image": 23,
+      "frontier|ocr_text": 0,
+      "frontier|image": 0
+    },
+    "item_over_extraction": {
+      "small|ocr_text": 21,
+      "small|image": 35,
+      "mid|ocr_text": 96,
+      "mid|image": 55,
+      "frontier|ocr_text": 20,
+      "frontier|image": 20
+    },
+    "magnitude_100x": {
+      "small|image": 1,
+      "small|ocr_text": 0,
+      "mid|ocr_text": 0,
+      "mid|image": 0,
+      "frontier|ocr_text": 0,
+      "frontier|image": 0
+    },
+    "unparseable": {
+      "small|image": 5,
+      "small|ocr_text": 0,
+      "mid|ocr_text": 0,
+      "mid|image": 0,
+      "frontier|ocr_text": 0,
+      "frontier|image": 0
+    }
+  },
+  "examples": {
+    "magnitude_1000x": {
+      "small|ocr_text": [
+        {
+          "doc": "test-000",
+          "field": "total",
+          "truth": 60000,
+          "pred": 60
+        },
+        {
+          "doc": "test-005",
+          "field": "total",
+          "truth": 31000,
+          "pred": 31
+        },
+        {
+          "doc": "test-013",
+          "field": "total",
+          "truth": 51300,
+          "pred": 51
+        }
+      ],
+      "small|image": [
+        {
+          "doc": "test-000",
+          "field": "total",
+          "truth": 60000,
+          "pred": 60
+        },
+        {
+          "doc": "test-005",
+          "field": "total",
+          "truth": 31000,
+          "pred": 31
+        },
+        {
+          "doc": "test-015",
+          "field": "total",
+          "truth": 63000,
+          "pred": 63
+        }
+      ],
+      "mid|ocr_text": [
+        {
+          "doc": "test-005",
+          "field": "total",
+          "truth": 31000,
+          "pred": 31
+        }
+      ],
+      "mid|image": [
+        {
+          "doc": "test-015",
+          "field": "total",
+          "truth": 63000,
+          "pred": 63
+        }
+      ]
+    },
+    "item_name_mismatch": {
+      "small|ocr_text": [
+        {
+          "doc": "test-000",
+          "truth_names": [
+            "-TICKET CP"
+          ],
+          "pred_names": [
+            "TICKET CP"
+          ]
+        },
+        {
+          "doc": "test-001",
+          "truth_names": [
+            "J.STB PROMO",
+            "Y.B.BAT",
+            "Y.BASO PROM"
+          ],
+          "pred_names": [
+            "J.STB",
+            "Y.B.BAT",
+            "Y.BASO PROM"
+          ]
+        },
+        {
+          "doc": "test-005",
+          "truth_names": [
+            "TRAD KY TOAST CARTE"
+          ],
+          "pred_names": [
+            "TRAD KY TOAST"
+          ]
+        }
+      ],
+      "small|image": [
+        {
+          "doc": "test-004",
+          "truth_names": [
+            "ICE BLACKCOFFE",
+            "AVOCADO COFFEE",
+            "CHIKEN KATSU FF"
+          ],
+          "pred_names": [
+            "ICE BLACKCOFFEE",
+            "AVOCADO COFFEE",
+            "CHIKEN KATSU FF"
+          ]
+        },
+        {
+          "doc": "test-006",
+          "truth_names": [
+            "EGG TART",
+            "CHOCO CUS ARD PASTRY",
+            "REDBEAN BREAD"
+          ],
+          "pred_names": [
+            "EGG TART",
+            "CHOCO CUSTARD PASTRY",
+            "REDBEAN BREAD"
+          ]
+        },
+        {
+          "doc": "test-007",
+          "truth_names": [
+            "Kupon 15"
+          ],
+          "pred_names": [
+            "ADD CHICKEN BOX"
+          ]
+        }
+      ],
+      "mid|ocr_text": [
+        {
+          "doc": "test-000",
+          "truth_names": [
+            "-TICKET CP"
+          ],
+          "pred_names": [
+            "901016 -TICKET CP"
+          ]
+        },
+        {
+          "doc": "test-006",
+          "truth_names": [
+            "EGG TART",
+            "CHOCO CUS ARD PASTRY",
+            "REDBEAN BREAD"
+          ],
+          "pred_names": [
+            "1 EGG TART",
+            "2 CHOCO CUS ARD PASTRY",
+            "1 REDBEAN BREAD"
+          ]
+        },
+        {
+          "doc": "test-007",
+          "truth_names": [
+            "Kupon 15"
+          ],
+          "pred_names": [
+            "Kupon 15 100,000",
+            "ADD CHICKEN BOX 909"
+          ]
+        }
+      ],
+      "mid|image": [
+        {
+          "doc": "test-000",
+          "truth_names": [
+            "-TICKET CP"
+          ],
+          "pred_names": [
+            "901016 -TICKET CP"
+          ]
+        },
+        {
+          "doc": "test-006",
+          "truth_names": [
+            "EGG TART",
+            "CHOCO CUS ARD PASTRY",
+            "REDBEAN BREAD"
+          ],
+          "pred_names": [
+            "EGG TART",
+            "CHOCO CUSTARD PASTRY",
+            "REDBEAN BREAD"
+          ]
+        },
+        {
+          "doc": "test-012",
+          "truth_names": [
+            "BLUS WANITA",
+            "SHOPPING BAG"
+          ],
+          "pred_names": [
+            "0571-1854 BLUS WANITA",
+            "1002-0060 SHOPPING BAG"
+          ]
+        }
+      ],
+      "frontier|ocr_text": [
+        {
+          "doc": "test-000",
+          "truth_names": [
+            "-TICKET CP"
+          ],
+          "pred_names": [
+            "901016 -TICKET CP"
+          ]
+        },
+        {
+          "doc": "test-009",
+          "truth_names": [
+            "Bumbu Kaldu Ayam 1"
+          ],
+          "pred_names": [
+            "Bumbu Kaldu Ayam"
+          ]
+        },
+        {
+          "doc": "test-012",
+          "truth_names": [
+            "BLUS WANITA",
+            "SHOPPING BAG"
+          ],
+          "pred_names": [
+            "0571-1854 BLUS WANITA",
+            "1002-0060 SHOPPING BAG"
+          ]
+        }
+      ],
+      "frontier|image": [
+        {
+          "doc": "test-006",
+          "truth_names": [
+            "EGG TART",
+            "CHOCO CUS ARD PASTRY",
+            "REDBEAN BREAD"
+          ],
+          "pred_names": [
+            "EGG TART",
+            "CHOCO CUSTARD PASTRY",
+            "REDBEAN BREAD"
+          ]
+        },
+        {
+          "doc": "test-009",
+          "truth_names": [
+            "Bumbu Kaldu Ayam 1"
+          ],
+          "pred_names": [
+            "Bumbu Kaldu Ayam"
+          ]
+        },
+        {
+          "doc": "test-012",
+          "truth_names": [
+            "BLUS WANITA",
+            "SHOPPING BAG"
+          ],
+          "pred_names": [
+            "0571-1854 BLUS WANITA",
+            "1002-0060 SHOPPING BAG"
+          ]
+        }
+      ]
+    },
+    "price_wrong_on_matched": {
+      "small|ocr_text": [
+        {
+          "doc": "test-000",
+          "truth_items": [
+            [
+              "-TICKET CP",
+              60000
+            ]
+          ],
+          "pred_items": [
+            [
+              "TICKET CP",
+              120
+            ]
+          ]
+        },
+        {
+          "doc": "test-004",
+          "truth_items": [
+            [
+              "ICE BLACKCOFFE",
+              82000
+            ],
+            [
+              "AVOCADO COFFEE",
+              61000
+            ],
+            [
+              "CHIKEN KATSU FF",
+              51000
+            ]
+          ],
+          "pred_items": [
+            [
+              "ICE BLACKCOFFE",
+              8200
+            ],
+            [
+              "AVOCADO COFFEE",
+              6100
+            ],
+            [
+              "CHIKEN KATSU FF",
+              5100
+            ]
+          ]
+        },
+        {
+          "doc": "test-005",
+          "truth_items": [
+            [
+              "TRAD KY TOAST CARTE",
+              28182
+            ]
+          ],
+          "pred_items": [
+            [
+              "TRAD KY TOAST CARTE",
+              2818
+            ]
+          ]
+        }
+      ],
+      "small|image": [
+        {
+          "doc": "test-000",
+          "truth_items": [
+            [
+              "-TICKET CP",
+              60000
+            ]
+          ],
+          "pred_items": [
+            [
+              "-TICKET CP",
+              60
+            ]
+          ]
+        },
+        {
+          "doc": "test-005",
+          "truth_items": [
+            [
+              "TRAD KY TOAST CARTE",
+              28182
+            ]
+          ],
+          "pred_items": [
+            [
+              "TRAD KY TOAST CARTE",
+              28
+            ]
+          ]
+        },
+        {
+          "doc": "test-012",
+          "truth_items": [
+            [
+              "BLUS WANITA",
+              null
+            ],
+            [
+              "SHOPPING BAG",
+              null
+            ]
+          ],
+          "pred_items": [
+            [
+              "BLUS WANITA",
+              120000
+            ],
+            [
+              "SHOPPING BAG",
+              0
+            ]
+          ]
+        }
+      ],
+      "mid|ocr_text": [
+        {
+          "doc": "test-004",
+          "truth_items": [
+            [
+              "ICE BLACKCOFFE",
+              82000
+            ],
+            [
+              "AVOCADO COFFEE",
+              61000
+            ],
+            [
+              "CHIKEN KATSU FF",
+              51000
+            ]
+          ],
+          "pred_items": [
+            [
+              "ICE BLACKCOFFE",
+              164000
+            ],
+            [
+              "AVOCADO COFFEE",
+              61000
+            ],
+            [
+              "CHIKEN KATSU FF",
+              51000
+            ]
+          ]
+        },
+        {
+          "doc": "test-005",
+          "truth_items": [
+            [
+              "TRAD KY TOAST CARTE",
+              28182
+            ]
+          ],
+          "pred_items": [
+            [
+              "TRAD KY TOAST CARTE",
+              28
+            ]
+          ]
+        },
+        {
+          "doc": "test-006",
+          "truth_items": [
+            [
+              "EGG TART",
+              13000
+            ],
+            [
+              "CHOCO CUS ARD PASTRY",
+              24000
+            ],
+            [
+              "REDBEAN BREAD",
+              9000
+            ]
+          ],
+          "pred_items": [
+            [
+              "1 EGG TART",
+              13000
+            ],
+            [
+              "2 CHOCO CUS ARD PASTRY",
+              48000
+            ],
+            [
+              "1 REDBEAN BREAD",
+              9000
+            ]
+          ]
+        }
+      ],
+      "mid|image": [
+        {
+          "doc": "test-014",
+          "truth_items": [
+            [
+              "RedVelvet Cheese Slc",
+              38000
+            ],
+            [
+              "Chicken Baked Rice",
+              55000
+            ],
+            [
+              "Fish n Chips",
+              65000
+            ],
+            [
+              "Mushroom Soup",
+              35000
+            ]
+          ],
+          "pred_items": [
+            [
+              "1 RedVelvet Cheese Slc",
+              30000
+            ],
+            [
+              "1 Chicken Baked Rice",
+              55000
+            ],
+            [
+              "1 Fish n Chips",
+              65000
+            ],
+            [
+              "1 Mushroom Soup",
+              35000
+            ]
+          ]
+        },
+        {
+          "doc": "test-015",
+          "truth_items": [
+            [
+              "Lemon Tea (L)",
+              25000
+            ],
+            [
+              "Caramel Small",
+              38000
+            ]
+          ],
+          "pred_items": [
+            [
+              "Lemon Tea (L)",
+              25
+            ],
+            [
+              "Caramel Small",
+              38
+            ]
+          ]
+        },
+        {
+          "doc": "test-020",
+          "truth_items": [
+            [
+              "cashew nuts chkn",
+              64500
+            ],
+            [
+              "garlic pepper beef",
+              79500
+            ],
+            [
+              "red curry beef",
+              69500
+            ],
+            [
+              "phad thai",
+              64500
+            ]
+          ],
+          "pred_items": [
+            [
+              "1 cashew nuts chkn",
+              64500
+            ],
+            [
+              "1 garlic pepper beef",
+              79500
+            ],
+            [
+              "1 red curry beef",
+              69500
+            ],
+            [
+              "1 phad thai",
+              64500
+            ]
+          ]
+        }
+      ],
+      "frontier|ocr_text": [
+        {
+          "doc": "test-012",
+          "truth_items": [
+            [
+              "BLUS WANITA",
+              null
+            ],
+            [
+              "SHOPPING BAG",
+              null
+            ]
+          ],
+          "pred_items": [
+            [
+              "BLUS WANITA",
+              120000
+            ],
+            [
+              "SHOPPING BAG",
+              0
+            ]
+          ]
+        }
+      ],
+      "frontier|image": [
+        {
+          "doc": "test-012",
+          "truth_items": [
+            [
+              "BLUS WANITA",
+              null
+            ],
+            [
+              "SHOPPING BAG",
+              null
+            ]
+          ],
+          "pred_items": [
+            [
+              "BLUS WANITA",
+              120000
+            ],
+            [
+              "SHOPPING BAG",
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    "invented_subtotal": {
+      "small|ocr_text": [
+        {
+          "doc": "test-001",
+          "truth_scalars": {
+            "total": 91000
+          },
+          "pred_scalars": {
+            "subtotal": 91000,
+            "total": 91000
+          }
+        },
+        {
+          "doc": "test-006",
+          "truth_scalars": {
+            "total": 46000
+          },
+          "pred_scalars": {
+            "subtotal": 46000,
+            "total": 46000
+          }
+        },
+        {
+          "doc": "test-011",
+          "truth_scalars": {
+            "total": 230000
+          },
+          "pred_scalars": {
+            "subtotal": 230000,
+            "total": 230000
+          }
+        }
+      ],
+      "small|image": [
+        {
+          "doc": "test-001",
+          "truth_scalars": {
+            "total": 91000
+          },
+          "pred_scalars": {
+            "subtotal": 91000,
+            "total": 91000
+          }
+        },
+        {
+          "doc": "test-006",
+          "truth_scalars": {
+            "total": 46000
+          },
+          "pred_scalars": {
+            "subtotal": 46000,
+            "total": 46000
+          }
+        },
+        {
+          "doc": "test-011",
+          "truth_scalars": {
+            "total": 230000
+          },
+          "pred_scalars": {
+            "subtotal": 230000,
+            "total": 230000
+          }
+        }
+      ],
+      "mid|ocr_text": [
+        {
+          "doc": "test-006",
+          "truth_scalars": {
+            "total": 46000
+          },
+          "pred_scalars": {
+            "subtotal": 46000,
+            "total": 46000
+          }
+        },
+        {
+          "doc": "test-011",
+          "truth_scalars": {
+            "total": 230000
+          },
+          "pred_scalars": {
+            "subtotal": 230000,
+            "total": 230000
+          }
+        },
+        {
+          "doc": "test-012",
+          "truth_scalars": {
+            "total": 120000
+          },
+          "pred_scalars": {
+            "subtotal": 120000,
+            "total": 120000
+          }
+        }
+      ],
+      "mid|image": [
+        {
+          "doc": "test-001",
+          "truth_scalars": {
+            "total": 91000
+          },
+          "pred_scalars": {
+            "subtotal": 91000,
+            "total": 91000
+          }
+        },
+        {
+          "doc": "test-011",
+          "truth_scalars": {
+            "total": 230000
+          },
+          "pred_scalars": {
+            "subtotal": 230000,
+            "total": 230000
+          }
+        },
+        {
+          "doc": "test-012",
+          "truth_scalars": {
+            "total": 120000
+          },
+          "pred_scalars": {
+            "subtotal": 120000,
+            "total": 120000
+          }
+        }
+      ],
+      "frontier|ocr_text": [
+        {
+          "doc": "test-018",
+          "truth_scalars": {
+            "total": 156000
+          },
+          "pred_scalars": {
+            "subtotal": 156000
+          }
+        },
+        {
+          "doc": "test-071",
+          "truth_scalars": {
+            "total": 198000
+          },
+          "pred_scalars": {
+            "subtotal": 198000
+          }
+        },
+        {
+          "doc": "test-079",
+          "truth_scalars": {
+            "total": 22000
+          },
+          "pred_scalars": {
+            "subtotal": 22000,
+            "total": 22000
+          }
+        }
+      ],
+      "frontier|image": [
+        {
+          "doc": "test-018",
+          "truth_scalars": {
+            "total": 156000
+          },
+          "pred_scalars": {
+            "subtotal": 156000
+          }
+        },
+        {
+          "doc": "test-071",
+          "truth_scalars": {
+            "total": 198000
+          },
+          "pred_scalars": {
+            "subtotal": 198000
+          }
+        }
+      ]
+    },
+    "magnitude_10x": {
+      "small|ocr_text": [
+        {
+          "doc": "test-004",
+          "field": "total",
+          "truth": 174600,
+          "pred": 17460
+        },
+        {
+          "doc": "test-005",
+          "field": "total",
+          "truth": 31000,
+          "pred": 3100
+        }
+      ],
+      "small|image": [
+        {
+          "doc": "test-018",
+          "field": "total",
+          "truth": 156000,
+          "pred": 15000
+        },
+        {
+          "doc": "test-043",
+          "field": "total",
+          "truth": 165000,
+          "pred": 16500
+        }
+      ]
+    },
+    "missed_tax": {
+      "small|ocr_text": [
+        {
+          "doc": "test-005",
+          "truth_scalars": {
+            "subtotal": 28182,
+            "tax": 2818,
+            "total": 31000
+          },
+          "pred_scalars": {
+            "subtotal": 28,
+            "discount": 3,
+            "total": 31
+          }
+        },
+        {
+          "doc": "test-014",
+          "truth_scalars": {
+            "subtotal": 238000,
+            "tax": 25585,
+            "service_charge": 17850,
+            "total": 281435
+          },
+          "pred_scalars": {
+            "subtotal": 238000,
+            "service_charge": 17850,
+            "discount": 100000,
+            "total": 281435
+          }
+        },
+        {
+          "doc": "test-019",
+          "truth_scalars": {
+            "subtotal": 160000,
+            "tax": 16000,
+            "total": 176000
+          },
+          "pred_scalars": {}
+        }
+      ],
+      "small|image": [
+        {
+          "doc": "test-014",
+          "truth_scalars": {
+            "subtotal": 238000,
+            "tax": 25585,
+            "service_charge": 17850,
+            "total": 281435
+          },
+          "pred_scalars": {
+            "subtotal": 238000,
+            "service_charge": 17850,
+            "discount": 100000,
+            "total": 281435
+          }
+        },
+        {
+          "doc": "test-020",
+          "truth_scalars": {
+            "subtotal": 325600,
+            "tax": 34351,
+            "service_charge": 17908,
+            "total": 377859
+          },
+          "pred_scalars": {
+            "subtotal": 325600,
+            "service_charge": 17908,
+            "discount": 34351,
+            "total": 377859
+          }
+        },
+        {
+          "doc": "test-031",
+          "truth_scalars": {
+            "subtotal": 85500,
+            "tax": 18126,
+            "service_charge": 10260,
+            "total": 113886
+          },
+          "pred_scalars": {
+            "subtotal": 85500,
+            "service_charge": 10260,
+            "discount": -85500,
+            "total": 113886
+          }
+        }
+      ],
+      "mid|ocr_text": [
+        {
+          "doc": "test-014",
+          "truth_scalars": {
+            "subtotal": 238000,
+            "tax": 25585,
+            "service_charge": 17850,
+            "total": 281435
+          },
+          "pred_scalars": {
+            "subtotal": 238000,
+            "service_charge": 17850,
+            "discount": 100000,
+            "total": 281435
+          }
+        },
+        {
+          "doc": "test-020",
+          "truth_scalars": {
+            "subtotal": 325600,
+            "tax": 34351,
+            "service_charge": 17908,
+            "total": 377859
+          },
+          "pred_scalars": {
+            "subtotal": 325600,
+            "service_charge": 17908,
+            "total": 377859
+          }
+        },
+        {
+          "doc": "test-031",
+          "truth_scalars": {
+            "subtotal": 85500,
+            "tax": 18126,
+            "service_charge": 10260,
+            "total": 113886
+          },
+          "pred_scalars": {
+            "subtotal": 85500,
+            "service_charge": 10260,
+            "total": 113886
+          }
+        }
+      ],
+      "mid|image": [
+        {
+          "doc": "test-014",
+          "truth_scalars": {
+            "subtotal": 238000,
+            "tax": 25585,
+            "service_charge": 17850,
+            "total": 281435
+          },
+          "pred_scalars": {
+            "subtotal": 230000,
+            "service_charge": 17850,
+            "discount": 100000,
+            "total": 281435
+          }
+        },
+        {
+          "doc": "test-031",
+          "truth_scalars": {
+            "subtotal": 85500,
+            "tax": 18126,
+            "service_charge": 10260,
+            "total": 113886
+          },
+          "pred_scalars": {
+            "subtotal": 85500,
+            "service_charge": 10260,
+            "discount": 85500,
+            "total": 113886
+          }
+        },
+        {
+          "doc": "test-038",
+          "truth_scalars": {
+            "subtotal": 561800,
+            "tax": 60394,
+            "service_charge": 42135,
+            "total": 664329
+          },
+          "pred_scalars": {
+            "subtotal": 561800,
+            "service_charge": 42135,
+            "total": 664329
+          }
+        }
+      ]
+    },
+    "item_over_extraction": {
+      "small|ocr_text": [
+        {
+          "doc": "test-016",
+          "n_true": 2,
+          "n_pred": 5,
+          "truth_names": [
+            "[LG] BLACK SAKURA",
+            "IVINERAL WATER (bundling) 5k"
+          ],
+          "pred_names": [
+            "[LG] BLACK SAKURA",
+            "LONGAN",
+            "ROASTED ALMOND",
+            "IVANGGO",
+            "IVINERAL WATER (bundling) 5k"
+          ]
+        },
+        {
+          "doc": "test-076",
+          "n_true": 4,
+          "n_pred": 7,
+          "truth_names": [
+            "BASO TAHU",
+            "NASI PUTIH",
+            "BASO TAHU",
+            "NASI PUTIH"
+          ],
+          "pred_names": [
+            "BASO TAHU",
+            "NASI PUTIH",
+            "BASO TAHU",
+            "2x 6000",
+            "NASI PUTIH",
+            "TEMS 50 -",
+            "ASH"
+          ]
+        },
+        {
+          "doc": "test-099",
+          "n_true": 1,
+          "n_pred": 10,
+          "truth_names": [
+            "FL-Xmas 30 Off"
+          ],
+          "pred_names": [
+            "FL-Xmas 30 Off",
+            "PAKET SLICES",
+            "FL Cake - French",
+            "Vanilla SLC",
+            "PAKET SLICES",
+            "FL Cake - Green",
+            "Tea SLC",
+            "PAKET SLICES"
+          ]
+        }
+      ],
+      "small|image": [
+        {
+          "doc": "test-016",
+          "n_true": 2,
+          "n_pred": 5,
+          "truth_names": [
+            "[LG] BLACK SAKURA",
+            "IVINERAL WATER (bundling) 5k"
+          ],
+          "pred_names": [
+            "[LG] BLACK SAKURA",
+            "LONGAN",
+            "ROASTED ALMOND",
+            "MANGGO",
+            "MINERAL WATER (bundling) 5k"
+          ]
+        },
+        {
+          "doc": "test-039",
+          "n_true": 3,
+          "n_pred": 6,
+          "truth_names": [
+            "LUNCH BOX 3P SET W/RED BAG & SP00 N.",
+            "RICE CASE 7L W/CUP",
+            "LUNCH BOX 3P SET W/BLACK BAG & SP OON"
+          ],
+          "pred_names": [
+            "HPL754DR LUNCH BOX 3P SET W/RED BAG & SPOON",
+            "DISKON: (20%)",
+            "HPL500 RICE CASE 7L W/CUP",
+            "DISKON: (20%)",
+            "HPL754DB LUNCH BOX 3P SET W/BLACK BAG & SPOON",
+            "DISKON: (20%)"
+          ]
+        },
+        {
+          "doc": "test-070",
+          "n_true": 10,
+          "n_pred": 13,
+          "truth_names": [
+            "UDANG RE",
+            "=*LARGE*==",
+            "AYM GR JUN NJAN",
+            "SAPO TH SEAFOOD",
+            "POCAI 3"
+          ],
+          "pred_names": [
+            "UDANG RE",
+            "=*LARGE*=",
+            "AYM GR JUN NJAN",
+            "=*MEDIUM*=",
+            "SAPO TH SEAFOOD",
+            "=*LARGE*=",
+            "POCAI 3",
+            "=*MEDIUM*="
+          ]
+        }
+      ],
+      "mid|ocr_text": [
+        {
+          "doc": "test-016",
+          "n_true": 2,
+          "n_pred": 5,
+          "truth_names": [
+            "[LG] BLACK SAKURA",
+            "IVINERAL WATER (bundling) 5k"
+          ],
+          "pred_names": [
+            "[LG] BLACK SAKURA",
+            "LONGAN",
+            "ROASTED ALMOND",
+            "IVANGGO",
+            "IVINERAL WATER (bundling) 5k"
+          ]
+        },
+        {
+          "doc": "test-017",
+          "n_true": 6,
+          "n_pred": 10,
+          "truth_names": [
+            "Goblin's Mace",
+            "Mozarella Hot Dog",
+            "Chili Pepper Croquette",
+            "Cheese Croquette",
+            "Plastik Amook"
+          ],
+          "pred_names": [
+            "Goblin's Mace",
+            "Mozarella Hot",
+            "Dog",
+            "Chili Pepper",
+            "Croquette",
+            "Cheese",
+            "Croquette",
+            "Plastik Amook"
+          ]
+        },
+        {
+          "doc": "test-026",
+          "n_true": 3,
+          "n_pred": 6,
+          "truth_names": [
+            "Nasi Cap Cay Porsi B esar",
+            "Teh Tawar",
+            "Fu Yung Hai"
+          ],
+          "pred_names": [
+            "Cap Cay",
+            "Nasi Cap Cay Porsi B esar",
+            "Minuman",
+            "Teh Tawar",
+            "Lain-lain",
+            "Fu Yung Hai"
+          ]
+        }
+      ],
+      "mid|image": [
+        {
+          "doc": "test-016",
+          "n_true": 2,
+          "n_pred": 5,
+          "truth_names": [
+            "[LG] BLACK SAKURA",
+            "IVINERAL WATER (bundling) 5k"
+          ],
+          "pred_names": [
+            "1 [LG] BLACK SAKURA",
+            "1 LONGAN",
+            "1 ROASTED ALMOND",
+            "1 MANGGO",
+            "1 MINERAL WATER (bundling) 5k"
+          ]
+        },
+        {
+          "doc": "test-039",
+          "n_true": 3,
+          "n_pred": 6,
+          "truth_names": [
+            "LUNCH BOX 3P SET W/RED BAG & SP00 N.",
+            "RICE CASE 7L W/CUP",
+            "LUNCH BOX 3P SET W/BLACK BAG & SP OON"
+          ],
+          "pred_names": [
+            "HPL754DR LUNCH BOX 3P SET 4/RED BAG & SPON",
+            "DISKON: (20%)",
+            "HPL500 RICE CASE 7L 4/CUP",
+            "DISKON: (20%)",
+            "HPL754DB LUNCH BOX 3P SET 4/BLACK BAG & SPON",
+            "DISKON: (20%)"
+          ]
+        },
+        {
+          "doc": "test-061",
+          "n_true": 6,
+          "n_pred": 9,
+          "truth_names": [
+            "TALAM UNGU",
+            "AREM - AREM",
+            "LEMPER",
+            "MIKA SEDANG",
+            "PLASTIK KECIL"
+          ],
+          "pred_names": [
+            "TALAM UNGU",
+            "DISC ITEM",
+            "AREM - AREM",
+            "DISC ITEM",
+            "LEMPER",
+            "DISC ITEM",
+            "MIKA SEDANG",
+            "PLASTIK KECIL"
+          ]
+        }
+      ],
+      "frontier|ocr_text": [
+        {
+          "doc": "test-016",
+          "n_true": 2,
+          "n_pred": 5,
+          "truth_names": [
+            "[LG] BLACK SAKURA",
+            "IVINERAL WATER (bundling) 5k"
+          ],
+          "pred_names": [
+            "[LG] BLACK SAKURA",
+            "LONGAN",
+            "ROASTED ALMOND",
+            "IVANGGO",
+            "IVINERAL WATER (bundling) 5k"
+          ]
+        },
+        {
+          "doc": "test-099",
+          "n_true": 1,
+          "n_pred": 7,
+          "truth_names": [
+            "FL-Xmas 30 Off"
+          ],
+          "pred_names": [
+            "FL-Xmas 30 Off",
+            "PAKET SLICES",
+            "FL Cake - French Vanilla SLC",
+            "PAKET SLICES",
+            "FL Cake - Green Tea SLC",
+            "PAKET SLICES",
+            "FL Cake - Belgium Choco SLC"
+          ]
+        }
+      ],
+      "frontier|image": [
+        {
+          "doc": "test-016",
+          "n_true": 2,
+          "n_pred": 5,
+          "truth_names": [
+            "[LG] BLACK SAKURA",
+            "IVINERAL WATER (bundling) 5k"
+          ],
+          "pred_names": [
+            "[LG] BLACK SAKURA",
+            "LONGAN",
+            "ROASTED ALMOND",
+            "MANGGO",
+            "MINERAL WATER (bundling) 5k"
+          ]
+        },
+        {
+          "doc": "test-099",
+          "n_true": 1,
+          "n_pred": 7,
+          "truth_names": [
+            "FL-Xmas 30 Off"
+          ],
+          "pred_names": [
+            "FL-Xmas 30 Off",
+            "PAKET SLICES",
+            "» FL Cake - French Vanilla SLC",
+            "PAKET SLICES",
+            "» FL Cake - Green Tea SLC",
+            "PAKET SLICES",
+            "FL Cake - Belgium Choco SLC"
+          ]
+        }
+      ]
+    },
+    "magnitude_100x": {
+      "small|image": [
+        {
+          "doc": "test-007",
+          "field": "line_item_price",
+          "truth": 100000,
+          "pred": 1009
+        }
+      ],
+      "small|ocr_text": [],
+      "mid|ocr_text": [],
+      "mid|image": [],
+      "frontier|ocr_text": [],
+      "frontier|image": []
+    },
+    "unparseable": {
+      "small|image": [
+        {
+          "doc": "test-045",
+          "reply_head": "[{\"name\": \"Lemon Tea (L).\", \"quantity\": 1, \"unit_price\": 25000, \"price\": 25000}, {\"name\": \"Mike & Ike Original\", \"quantity\": 1, \"unit_price\": 28000, \"price\": 28"
+        },
+        {
+          "doc": "test-083",
+          "reply_head": "[{\"name\": \"COOKIES AND CREAM\", \"quantity\": 1, \"unit_price\": 20909, \"price\": 20909}, {\"name\": \"subtotal\", \"quantity\": null, \"unit_price\": null, \"price\": 20909}, "
+        }
+      ],
+      "small|ocr_text": [],
+      "mid|ocr_text": [],
+      "mid|image": [],
+      "frontier|ocr_text": [],
+      "frontier|image": []
+    }
+  }
+}

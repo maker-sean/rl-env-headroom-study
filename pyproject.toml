@@ -1,0 +1,40 @@
+[project]
+name = "doc-extraction-study"
+version = "0.2.0"
+requires-python = ">=3.11"
+description = "Receipt field extraction on CORD v2 with a tested verifier, partial-credit per-field rewards, and a locale failure mode (Indonesian thousands separators) that a 9B hits on 141 of 1,000 rollouts and a frontier model never does. Baselines for three model tiers across OCR text and page images, 6,000 scored rollouts."
+readme = "README.md"
+license = "MIT"
+dependencies = [
+    "datasets>=5.1.0",
+    "pillow>=13.0.0",
+    "pytest>=9.2.0",
+    "verifiers>=0.4.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/doc_extraction_study"]
+
+# Kept as a record of a guard that did not work.
+#
+# An earlier version of this section excluded files on the belief that
+# `prime env push` publishes a hatch-built sdist. It does not. Push runs
+# `uv build --wheel` and uploads the wheel, which carries only
+# `src/doc_extraction_study`, then builds a SEPARATE source archive by walking
+# the working tree itself (prime_cli/commands/env.py:417, CLI 0.20.0). The
+# hatch sdist target is never built, so the excludes were inert.
+#
+# The guard that holds is .gitignore, which the archive walker honors. See
+# `private/` there, and scripts/20_check_publish_surface.py, which lists the
+# real archive contents using the CLI's own collector before a push.
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "private",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
